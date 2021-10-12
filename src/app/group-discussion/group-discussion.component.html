@@ -1,0 +1,165 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Group Discussion</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <!-- <ol class="breadcrumb float-sm-right">
+                <button type="button" class="btn btn-primary fs-15" data-toggle="modal" data-target="#addcategory"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add New Category</button>
+            </ol> -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+              <form [formGroup]="Addgroupdiscusion">
+                  <div class="form-group">
+                    <label for="">Create Group Name</label>
+                    <input type="text" class="form-control" formControlName="group_name" [ngClass]="{'is-invalid':submitted && f.group_name.errors}">
+                    <div *ngIf="submitted && f.group_name.errors"  class="invalid-feedback">
+                          <div *ngIf="f.group_name.errors.required" class="fs-13">
+                            Group name is required
+                          </div> 
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="">Upload Image</label>
+                      <input type="file" class="form-control" formControlName="group_image" [ngClass]="{ 'is-invalid': submitted && f.group_image.errors }" (change)="onFileSelect($event)">
+                        <div *ngIf="submitted && f.group_image.errors" class="invalid-feedback">
+                            <div *ngIf="f.group_image.errors.required" class="fs-13">
+                                  Group image is required
+                            </div>
+                        </div>
+                  </div>
+                  <div class="from-group text-center">
+                    <button class="btn btn-primary" type="button" (click)="addg_d()">Submit</button>
+                  </div>
+              </form>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead class="bg-primary">
+                        <tr>
+                          <th>ID</th>
+                          <th>Group Name</th>
+                          <th>Image</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let group of allgroupdiscussion ">
+                          <td>{{group.id}}</td>
+                          <td>{{group.groupname}}</td>
+                          <td class="d-flex justify-content-center">
+                            <div class="category_image">
+                              <img src="{{'http://54.151.204.88'+group.image}}" alt="" class="image">
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="editg_b(group.id,group.groupname,group.image)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                            <button type="button" class="btn btn-danger fs-15" (click)="delete_g_b(group.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+              <ngx-spinner
+              bdColor="rgba(51,51,51,0.8)"
+              size="medium"
+              color="#fff"
+              type="ball-scale-multiple">
+              <p style="font-size: 20px; color: white">Loading...</p>
+              </ngx-spinner>
+            </div>
+            <div class="col-md-12" *ngIf="no_data">
+              <h1 class="text-danger text-center fs-20 fw-700">No Data Found</h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+</div>
+
+
+
+<!-- edit modal -->
+
+<div class="modal fade" id="editgroupdiscussion">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title mgb-0 text-white fs-18">Edit Group Discussion</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeeditg_b()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="Updategroupdiscusion">
+          <div class="form-group">
+            <label for="">Create Group Name</label>
+            <input type="text" class="form-control" formControlName="update_group_name" [ngClass]="{'is-invalid':Update_submitted && u.update_group_name.errors}" [(ngModel)]="group_name">
+            <div *ngIf="Update_submitted && u.update_group_name.errors"  class="invalid-feedback">
+                  <div *ngIf="u.update_group_name.errors.required" class="fs-13">
+                    Group name is required
+                  </div> 
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="">Upload Image</label>
+              <input type="file" class="form-control" formControlName="update_group_image" [ngClass]="{ 'is-invalid': Update_submitted && u.update_group_image.errors }" (change)="onFileSelect($event)">
+                <div *ngIf="Update_submitted && u.update_group_image.errors" class="invalid-feedback">
+                    <div *ngIf="u.update_group_image.errors.required" class="fs-13">
+                          Group image is required
+                    </div>
+                </div>
+          </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeeditg_b()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateg_d()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete modal -->
+
+<div class="modal fade" id="deletegroupdiscussion">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title mgb-0 text-white fs-18">Delete Group Discussion</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closedelete()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       Are you sure the delete the Group Discussion
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closedelete()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="deleteg_b()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

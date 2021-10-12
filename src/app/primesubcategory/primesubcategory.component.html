@@ -1,0 +1,167 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-12 mgb-10">
+            <h1 class="m-0 text-dark">Subategories</h1>
+          </div><!-- /.col -->
+          <div class="col-md-6">
+            <button class="btn btn-primary fs-15" routerLink="/elearning/prime_video">Back</button>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <button type="button" class="btn btn-primary fs-15" data-toggle="modal" data-target="#addsubcategory"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add New Subategory</button>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead class="bg-primary">
+                        <tr>
+                          <th>ID</th>
+                          <th>Sub Category</th>
+                          <th>Main Category</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let allsubcategroy of allsubcategroys">
+                          <td>{{allsubcategroy.id}}</td>
+                          <td>{{allsubcategroy.name}}</td>
+                          <td>{{allsubcategroy.category_name}}</td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="editsubcategory(allsubcategroy.id,allsubcategroy.name,allsubcategroy.category_name)"><i class="fa fa-pencil-square-o mgr-5"></i>Edit</button>
+                            <button type="button" class="btn btn-danger fs-15" (click)="delete_subcategory(allsubcategroy.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+      
+            <div class="col-md-12">
+              <ngx-spinner
+              bdColor="rgba(51,51,51,0.8)"
+              size="medium"
+              color="#fff"
+              type="ball-scale-multiple">
+              <p style="font-size: 20px; color: white">Loading...</p>
+              </ngx-spinner>
+            </div>   
+        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+</div>
+  
+<!-- addcategory modal -->
+  <div class="modal fade" id="addsubcategory">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Add SubCategory</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="Addsubcategory">
+              <div class="form-group">
+                <label for="">Main Category</label>
+                <select class="form-select fs-15" aria-label="Default select example"  formControlName="category_name" [ngClass]="{ 'is-invalid': submitted && f.category_name.errors }" [(ngModel)]="category_name">
+                  <option [ngValue]="undefined" selected>-- Select Main Category --</option>
+                  <option *ngFor="let allcategroy of allcategroys" value="{{allcategroy.id}}">{{allcategroy.name}}</option>
+                </select>
+                <div *ngIf="submitted && f.category_name.errors" class="invalid-feedback">
+                  <div *ngIf="f.category_name.errors.required" class="fs-13">Category Name is required</div>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label for="">Sub Category Name</label>
+                  <input type="text" class="form-control" formControlName="subcategory_name" [ngClass]="{ 'is-invalid': submitted && f.subcategory_name.errors }" [(ngModel)]="subcategory_name">
+                  <div *ngIf="submitted && f.subcategory_name.errors" class="invalid-feedback">
+                    <div *ngIf="f.subcategory_name.errors.required" class="fs-13">SubCategory Name is required</div>
+                  </div>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="addsubcategory()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- editcategory -->
+
+  <div class="modal fade" id="editsubcategory">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Edit SubCategory</h5>
+          <button type="button" class="close text-white" (click)="closeeditsubcatecory()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="Updatesubcategory">
+              <div class="form-group">
+                  <label for="">Main Category</label>
+                  <input type="text" class="form-control" value="{{maincategory_name}}"  readonly>
+              </div>
+              <div class="form-group">
+                <label for="">Sub Category Name</label>
+                <input type="text" class="form-control" [(ngModel)]="scategory_name" [ngClass]="{ 'is-invalid': submitted && u.subcategoryname.errors }" formControlName="subcategoryname">
+                <div *ngIf="submitted && u.subcategoryname.errors" class="invalid-feedback">
+                  <div *ngIf="u.subcategoryname.errors.required" class="fs-13">SubCategory Name is required</div>
+                </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeeditsubcatecory()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updatesubcategory()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- delete subcategory -->
+
+  <div class="modal fade" id="deletesubcategory">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Delete SubCategory</h5>
+          <button type="button" class="close text-white" (click)="closedeletesubcategory()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure the delete the subcategory
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closedeletesubcategory()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="deletesubcategory()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>

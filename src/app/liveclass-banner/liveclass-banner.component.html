@@ -1,0 +1,178 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-12 mgb-10">
+            <h1 class="m-0 text-dark">Live Class Banner</h1>
+          </div><!-- /.col -->
+          <div class="col-md-6">
+            <button class="btn btn-primary" routerLink="/elearning/liveclass">Back</button>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <button type="button" class="btn btn-primary fs-15"  data-toggle="modal" data-target="#addbannerimage"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add Banner Image</button>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead class="bg-primary">
+                        <tr>
+                          <th>ID</th>
+                          <th>Title</th>
+                          <th>Banner Image</th>
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let banner of allbannerlist">
+                         <td>{{banner.id}}</td>
+                         <td>{{banner.title}}</td>
+                         <td class="d-flex justify-content-center">
+                           <div class="banner_image">
+                             <img src="{{'http://54.151.204.88'+banner.banner}}" alt="" class="image">
+                           </div>
+                         </td>
+                          <!-- <td>Analog@gmail.com</td> -->
+                          <td class="text-center">
+                            <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="editbanner(banner.id,banner.title,banner.banner)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                            <button type="button" class="btn btn-danger fs-15" (click)="deletebanner(banner.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+              <ngx-spinner
+              bdColor="rgba(51,51,51,0.8)"
+              size="medium"
+              color="#fff"
+              type="ball-scale-multiple">
+              <p style="font-size: 20px; color: white">Loading...</p>
+              </ngx-spinner>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+</div>
+
+<!-- add banner image modal -->
+
+
+
+<div class="modal fade" id="addbannerimage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header bg-primary">
+        <h5 class="modal-title mgb-0 text-white fs-18">Add Banner Image</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="Addbanner">
+            <div class="form-group">
+              <label for="">Upload Banner Title</label>
+              <input type="text" class="form-control" formControlName="banner_title" [ngClass]="{'is-invalid':submitted && f.banner_title.errors}">
+              <div *ngIf="submitted && f.banner_title.errors" class="invalid-feedback">
+                <div *ngIf="f.banner_title.errors.required" class="fs-13">Banner image is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="">Upload Banner Image</label>
+                <input type="file" class="form-control" formControlName="banner_image" [ngClass]="{'is-invalid':submitted && f.banner_image.errors}" (change)="onFileSelect($event)" accept="image/*">
+                <div *ngIf="submitted && f.banner_image.errors" class="invalid-feedback">
+                  <div *ngIf="f.banner_image.errors.required" class="fs-13">Banner image is required</div>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addbanner()">ADD</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit banner image -->
+
+<div class="modal fade" id="editbannerimage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header bg-primary">
+        <h5 class="modal-title mgb-0 text-white fs-18">Edit Banner Image</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeeditbanner()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="Updatebanner">
+          <div class="form-group">
+            <label for="">Upload Banner Title</label>
+            <input type="text" class="form-control" formControlName="banner_title" [ngClass]="{'is-invalid':submitted && f.banner_title.errors}" [(ngModel)]="banner_title">
+            <div *ngIf="submitted && f.banner_title.errors" class="invalid-feedback">
+              <div *ngIf="f.banner_title.errors.required" class="fs-13">Banner image is required</div>
+            </div>
+          </div>
+          <div class="category_image">
+            <img src="{{'http://54.151.204.88'+banner_image}}" alt="" class="image">
+          </div>
+          <div class="form-group">
+              <label for="">Upload Banner Image</label>
+              <input type="file" class="form-control" formControlName="banner_image" [ngClass]="{'is-invalid':updatesubmitted && u.banner_image.errors}" accept="image/*">
+              <div *ngIf="updatesubmitted && u.banner_image.errors" class="invalid-feedback">
+                <div *ngIf="u.banner_image.errors.required" class="fs-13">Banner image is required</div>
+              </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updatebanner()">Update</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeeditbanner()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete banner image -->
+
+<div class="modal fade" id="deletebannerimage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header bg-primary">
+        <h5 class="modal-title mgb-0 text-white fs-18">Delete Banner Image</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeeditbanner()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure the delete the live class banner image
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="delete()">Delete</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closedeletebanner()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

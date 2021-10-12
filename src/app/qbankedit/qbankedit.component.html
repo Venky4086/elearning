@@ -1,0 +1,186 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Q & Bank</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <!-- <button type="button" class="btn btn-primary fs-15" data-toggle="modal" data-target="#addshots"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add New Shots</button> -->
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row"  *ngFor="let qbankmode of qbankmodes">
+                <div class="col-md-12">
+                    <form [formGroup]="EditQbank">
+                        <div class="form-group">
+                            <label for="">Mode</label>
+                            <input name="" id="" class="form-control" [(ngModel)]="qbankmode.level" formControlName="level" [ngClass]="{'is-invalid':submitted && q.level.errors}">
+                            <div class="invalid-feedback" *ngIf="submitted && q.level.errors">
+                                <div class="fs-15" *ngIf="q.level.errors.required">
+                                    Mode is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Exams</label>
+                            <input name="" id="" [(ngModel)]="qbankmode.examtype" class="form-control" formControlName="exam" [ngClass]="{'is-invalid':submitted && q.exam.errors}">
+                            <div class="invalid-feedback" *ngIf="submitted && q.exam.errors">
+                                <div class="fs-15" *ngIf="q.exam.errors.required">
+                                    Exam is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Sub Category</label>
+                            <input class="form-control" value="{{qbankmode.sub_category_name}}" readonly>
+                            <!-- <div *ngIf="submitted && q.subcategory_name.errors" class="invalid-feedback">
+                              <div *ngIf="q.subcategory_name.errors.required" class="fs-15">Subcategory is required</div>
+                            </div> -->
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Q bank mode -->
+
+                <div class="col-md-12">
+                    <form action="" [formGroup]="EditQbank">
+                      <div class="row" *ngFor="let qbankmode of qbankmodes">
+                        <div class="col-md-6">
+        
+                          <div class="form-group">
+                            <label for="email">Enter Question of the day:</label>
+                            <input type="text" class="form-control" [(ngModel)]="qbankmode.question" placeholder="Enter Question" [ngClass]="{ 'is-invalid': submitted && q.question.errors }" formControlName="question">
+                            <div *ngIf="submitted && q.question.errors" class="invalid-feedback">
+                              <div *ngIf="q.question.errors.required" class="fs-15">Question is required</div>
+                            </div>
+                          </div>
+                  
+                          <div class="form-group mgb-0 ">
+                            <label for="email mgb-0">Option 1</label>
+                            <div class="row">
+                              <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                              </div> -->
+                              <div class="form-group col-md-12">
+                              <input type="text" class="form-control" [(ngModel)]="qbankmode.answer1" placeholder="Option 1" formControlName="answer_one" [ngClass]="{ 'is-invalid': submitted && q.answer_one.errors}"> 
+                              <div *ngIf="submitted && q.answer_one.errors" class="invalid-feedback">
+                                <div *ngIf="q.answer_one.errors.required" class="fs-15">Answer one is required</div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+                          <div class="form-group mgb-0">
+                            <label for="email mgb-0">Option 2</label>
+                            <div class="row">
+                              <div class="form-group col-md-12">
+                              <input type="text" [(ngModel)]="qbankmode.answer2" class="form-control" placeholder="Option 2" formControlName="answer_two" [ngClass]="{ 'is-invalid': submitted && q.answer_two.errors}">
+                              <div *ngIf="submitted && q.answer_two.errors" class="invalid-feedback">
+                                <div *ngIf="q.answer_two.errors.required" class="fs-15">Answer two is required</div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+                          <div class="form-group mgb-0">
+                            <label for="email mgb-0">Option 3</label>
+                            <div class="row">
+                              <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                              </div> -->
+                              <div class="form-group col-md-12">
+                              <input type="text" [(ngModel)]="qbankmode.answer3" class="form-control" placeholder="Option 3" formControlName="answer_three" [ngClass]="{ 'is-invalid': submitted && q.answer_three.errors}">
+                              <div *ngIf="submitted && q.answer_three.errors" class="invalid-feedback">
+                                <div *ngIf="q.answer_three.errors.required" class="fs-15">Answer three is required</div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+                          <div class="form-group mgb-0">
+                            <label for="email mgb-0">Option 4</label>
+                            <div class="row">
+                              <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                              </div> -->
+                              <div class="form-group col-md-12">
+                              <input type="text" [(ngModel)]="qbankmode.answer4" class="form-control" placeholder="Option 4" formControlName="answer_four" [ngClass]="{ 'is-invalid': submitted && q.answer_four.errors}">
+                              <div *ngIf="submitted && q.answer_four.errors" class="invalid-feedback">
+                                <div *ngIf="q.answer_four.errors.required" class="fs-15">Answer four is required</div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="form-group">
+                            <label for="email">See Explanation</label>
+                              <textarea id="elearning" name="elearning">      
+                              </textarea>
+                          </div> -->
+                          <div class="form-group">
+                            <label for="">Correct Answer</label>
+                            <input class="form-control" [(ngModel)]="qbankmode.correctanswer" formControlName="correct_answer" [ngClass]="{ 'is-invalid': submitted && q.correct_answer.errors}">
+                            <div *ngIf="submitted && q.correct_answer.errors" class="invalid-feedback">
+                              <div *ngIf="q.correct_answer.errors.required" class="fs-15">Correct Answer is required</div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="category_image mgb-5 mg-auto">
+                              <img src="{{'http://54.151.204.88'+qbankmode.image}}" alt="" class="image">
+                            </div>
+                            <label for="">Image</label>
+                            <input type="file" class="form-control" formControlName="image" [ngClass]="{ 'is-invalid': submitted && q.image.errors}" (change)="onFileSelect($event)">
+                            <div *ngIf="submitted && q.image.errors" class="invalid-feedback">
+                              <div *ngIf="q.image.errors.required" class="fs-15">Image is required</div>
+                            </div>
+                          </div>
+                       
+                        </div>
+                        <div class="col-md-6">
+                          <label for="">Description</label>
+                          <ckeditor name="PageContent" [(ngModel)]="qbankmode.explanation" formControlName="description" [ngClass]="{ 'is-invalid': submitted && q.description.errors}"  
+                          debounce="500">    
+                          </ckeditor>
+                          <div *ngIf="submitted && q.description.errors" class="invalid-feedback">
+                            <div *ngIf="q.description.errors.required" class="fs-15">Description is required</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group my-4 text-center">
+                        <button type="button" class="btn btn-primary bg-clr" (click)="editqbank()">Edit Qbank</button>
+                      </div>
+                     </form>
+                </div>
+         
+
+        </div>
+                 
+        <div class="col-md-12">
+          <ngx-spinner
+          bdColor="rgba(51,51,51,0.8)"
+          size="medium"
+          color="#fff"
+          type="ball-scale-multiple">
+          <p style="font-size: 20px; color: white">Loading...</p>
+          </ngx-spinner>
+        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+</div>

@@ -1,0 +1,155 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Disscussion</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <button type="button" class="btn btn-primary fs-15" data-toggle="modal" data-target="#adddiscussion"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add New Disscussion</button>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead class="bg-primary">
+                        <tr>
+                          <th>ID</th>
+                          <th>SubCategory</th>
+                          <th>Video URL</th>
+                          <th>Notes[PDF]</th>
+                          <th>Image</th>
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td></td>
+                          <td></td> 
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-primary fs-15 mgr-10"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                            <button type="button" class="btn btn-danger fs-15"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+              <ngx-spinner
+              bdColor="rgba(51,51,51,0.8)"
+              size="medium"
+              color="#fff"
+              type="ball-scale-multiple">
+              <p style="font-size: 20px; color: white">Loading...</p>
+              </ngx-spinner>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+</div>
+  
+<!-- addcategory modal -->
+  <div class="modal fade" id="adddiscussion">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Add Disscussion</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="AddDiscussion">
+              <div class="form-group">
+                <label for="">Sub Category</label>
+                <select class="form-select fs-15" aria-label="Default select example" formControlName ="subcategory_name" [ngClass]="{'is-invalid':submitted && f.subcategory_name.errors}">
+                  <option selected>-- Select SubCategory --</option>
+                </select>
+                <div *ngIf="submitted && f.subcategory_name.errors" class="invalid-feedback">
+                  <div *ngIf="f.subcategory_name.errors.required" class="fs-13">Subcategory is required</div>
+                </div>
+              </div>
+                <div class="form-group">
+                    <label for="">Video Upload</label>
+                    <input type="file" class="form-control" formControlName ="d_video" [ngClass]="{'is-invalid':submitted && f.d_video.errors}">
+                    <div *ngIf="submitted && f.d_video.errors" class="invalid-feedback">
+                        <div *ngIf="f.d_video.errors.required" class="fs-13">Video Upload is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Notes(PDF)</label>
+                    <input type="text" class="form-control" formControlName ="d_notes" [ngClass]="{'is-invalid':submitted && f.d_notes.errors}">
+                    <div *ngIf="submitted && f.d_notes.errors" class="invalid-feedback">
+                        <div *ngIf="f.d_notes.errors.required" class="fs-13">Notes(pdf) is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="">Image</label>
+                  <input type="file" class="form-control" formControlName ="d_image" [ngClass]="{'is-invalid':submitted && f.d_image.errors}">
+                  <div *ngIf="submitted && f.d_image.errors" class="invalid-feedback">
+                      <div *ngIf="f.d_image.errors.required" class="fs-13">Image is required</div>
+                  </div>
+                </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="Add_disscussion()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- editcategory -->
+
+  <div class="modal fade" id="editdisscussion">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Edit Disscussion</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+              <div class="form-group">
+                <label for="">Sub Category Name</label>
+                <input type="text" class="form-control">
+            </div>
+              <div class="form-group">
+                <label for="">Image</label>
+                <input type="file" class="form-control">
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>

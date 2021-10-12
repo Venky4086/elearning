@@ -1,0 +1,192 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark mb-3">Q & D</h1>
+
+            <form [formGroup]="Add_QD">
+                <div class="form-group">
+                    <label>Video Title</label>
+                    <input type="text" class="form-control" id="name" formControlName="video_title" [ngClass]="{'is-invalid':submitted && f.video_title.errors}">
+                    <div class="invalid-feedback" *ngIf="submitted && f.video_title.errors">
+                      <div *ngIf="submitted && f.video_title.errors.required" class="fs-13">
+                        Video title is required
+                      </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label> Video Url</label>
+                  <input type="file" id="myFile" name="filename2" class="form-control" formControlName="video_url" [ngClass]="{'is-invalid':submitted && f.video_url.errors}" (change)="onFileSelect($event)" accept="video/*">
+                  <div class="invalid-feedback" *ngIf="submitted && f.video_url.errors">
+                    <div *ngIf="submitted && f.video_url.errors.required" class="fs-13">
+                      Video url is required
+                    </div>
+                  </div>
+                  </div>
+                  <!-- <ckeditor name="PageContent" required    
+                  debounce="500">    
+                  </ckeditor> -->
+        
+                  <br>
+               
+               <div class="form-group text-center">
+                <!-- <button type="button" class="btn btn-primary mr-3 fs-15">
+                  Add More
+                </button> -->
+                <button type="button" class="btn btn-primary fs-15" (click)="addvideo()">
+                  Submit
+                </button>
+               </div>
+
+              
+
+            </form>
+
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Q-D</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="bg-primary">
+                    <tr>
+                      <th>ID</th>
+                      <th>Video Title</th>
+                      <th>Video Url</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let allvideo of allvideos">
+                      <td>{{allvideo.id}}</td>
+                      <td>{{allvideo.title}}</td>
+                      <td class="d-flex justify-content-center">
+                        <div class="video_play">
+                          <video class="video" controls>
+                           <source src="{{'http://54.151.204.88'+allvideo.video}}"  type="video/mp4">
+                         </video>
+                        </div>
+                    </td>
+                      <!-- <td>Analog@gmail.com</td> -->
+                      <td class="text-center">
+                        <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="editvideo(allvideo.id,allvideo.title,allvideo.video)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                        <button type="button" class="btn btn-danger fs-15" (click)="delete_video(allvideo.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div> 
+          <div class="col-md-12">
+            <ngx-spinner
+            bdColor="rgba(51,51,51,0.8)"
+            size="medium"
+            color="#fff"
+            type="ball-scale-multiple">
+            <p style="font-size: 20px; color: white">Loading...</p>
+            </ngx-spinner>
+          </div>
+          <!-- /.col-md-6 -->
+                      
+        </div>
+
+       
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    
+    <!-- /.content -->
+  </div>
+
+
+
+  <!-- video edit modal -->
+
+
+  <div class="modal fade" id="editvideo">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Edit Video</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeeditvideo()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="Update_QD">
+            <div class="form-group">
+                <label>Video Title</label>
+                <input type="text" class="form-control" id="name" formControlName="video_title" [ngClass]="{'is-invalid':updatesubmitted && u.video_title.errors}" [(ngModel)]="title">
+                <div class="invalid-feedback" *ngIf="updatesubmitted && u.video_title.errors">
+                  <div *ngIf="updatesubmitted && u.video_title.errors.required" class="fs-13">
+                    Video title is required
+                  </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label> Video Url</label>
+              <input type="file" id="myFile" name="filename2" class="form-control" formControlName="video_url" [ngClass]="{'is-invalid':updatesubmitted && u.video_url.errors}" (change)="onFileSelect($event)" accept="video/*">
+              <div class="invalid-feedback" *ngIf="updatesubmitted && u.video_url.errors">
+                <div *ngIf="updatesubmitted && u.video_url.errors.required" class="fs-13">
+                  Video url is required
+                </div>
+              </div>
+              </div>
+              <!-- <ckeditor name="PageContent" required    
+              debounce="500">    
+              </ckeditor> -->
+    
+              <br>
+        </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeeditvideo()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="update()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- delete video -->
+
+
+  <div class="modal fade" id="deletevideo">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Delete Video</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closedeletevideo()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         Are you sure the delete the Question Discussion Video
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closedeletevideo()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="delete()">delete</button>
+        </div>
+      </div>
+    </div>
+  </div>

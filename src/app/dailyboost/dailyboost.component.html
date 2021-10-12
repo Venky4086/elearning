@@ -1,0 +1,433 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Daily Boost</h1>
+           
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Daily Boost</li>
+            
+            </ol>
+            <ol class="breadcrumb float-sm-right mgr-10">
+              <li>
+              <a class="btn btn-primary" routerLink="/elearning/dailyboostbanner">Add Banner</a>
+              </li>
+            </ol>
+          
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+                        <!-- /.col-md-6 -->
+          <div class="col-md-12">
+            <form [formGroup]="MainDailyboots">
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label> Banner</label>
+                   <select class="form-select" formControlName="banner" [ngClass]="{'is-invalid':main_submitted && m.banner.errors}">
+                     <option value="">-- select banner --</option>
+                     <option value="{{banner.id}}" *ngFor="let banner of allbannerlist">{{banner.title}}</option>
+                   </select>
+                   <div class="invalid-feedback" *ngIf="main_submitted && m.banner.errors">
+                     <div *ngIf="m.banner.errors.required" class="fs-15">
+                             banner is required
+                     </div>
+                   </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                  <label> Set Timer </label>
+                  <input type="text" id="appt" name="appt" class="form-control" formControlName="timer" [ngClass]="{'is-invalid':main_submitted && m.timer.errors}">
+                    <div class="invalid-feedback" *ngIf="main_submitted && m.timer.errors">
+                          <div class="fs-15" *ngIf="m.timer.errors.required">
+                            Timer is required
+                          </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group my-3 col-md-6">
+                    <label>Title</label>
+                    <input type="text" id="no" name="No Of Questions" formControlName="title" class="form-control" [ngClass]="{'is-invalid':main_submitted && m.title.errors}">
+                    <div class="invalid-feedback" *ngIf="main_submitted && m.title.errors">
+                      <div class="m.title.errors.required" class="fs-15">
+                        Title is required
+                      </div>
+                    </div>
+                  </div>   
+                  <div class="form-group my-3 col-md-6">
+                    <label>Number of Questions</label>
+                    <input type="number" id="no" name="No Of Questions" class="form-control" formControlName="no_of_questions" [ngClass]="{'is-invalid':main_submitted && m.no_of_questions.errors}">
+                    <div class="invalid-feedback" *ngIf="main_submitted && m.no_of_questions.errors">
+                      <div class="m.no_of_questions.errors.required" class="fs-15">
+                        No of question required
+                      </div>
+                    </div>
+                  </div>
+                </div>    
+                <div class="form-group text-center">
+                  <button class="fs-15 btn btn-primary" type="button" (click)="add_main_boots()">Submit</button>
+                </div>  
+            </form>
+            <!-- <div class="form-group my-3" *ngIf="number_of_questions">
+              <label>Number of Questions</label>
+              <input type="number" id="no" name="No Of Questions" class="form-control" (keyup)="add_more_questions(no_of_questions.value)" #no_of_questions>
+            </div> -->
+          </div>
+
+          <div class="col-md-12">
+            <form action="" [formGroup]="AddQns">
+
+              <div class="row">
+                <div class="col-md-6">
+
+                  <div class="form-group">
+                    <label for="">Title</label>
+                    <select class="form-select" formControlName="dailyboostdetail" [ngClass]="{ 'is-invalid': submitted && f.dailyboostdetail.errors}">
+                      <option value="">--- select the main daily boost title ---</option>
+                      <option value="{{dailyboost.id}}" *ngFor="let dailyboost of allmainlist">{{dailyboost.title}}</option> 
+                    </select>
+                    <div *ngIf="submitted && f.dailyboostdetail.errors" class="invalid-feedback">
+                      <div *ngIf="f.dailyboostdetail.errors.required" class="fs-15">Dailyboostdetails Title is required</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">Enter Question of the day:</label>
+                    <input type="text" class="form-control" placeholder="Enter Question" [ngClass]="{ 'is-invalid': submitted && f.question.errors }" formControlName="question">
+                    <div *ngIf="submitted && f.question.errors" class="invalid-feedback">
+                      <div *ngIf="f.question.errors.required" class="fs-15">Question is required</div>
+                    </div>
+                  </div>
+          
+                  <div class="form-group mgb-0 ">
+                    <label for="email mgb-0">Option 1</label>
+                    <div class="row">
+                      <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      </div> -->
+                      <div class="form-group col-md-12">
+                      <input type="text" class="form-control" placeholder="Option 1" formControlName="answer_one" [ngClass]="{ 'is-invalid': submitted && f.answer_one.errors}" (keyup)="one($event)"> 
+                      <div *ngIf="submitted && f.answer_one.errors" class="invalid-feedback">
+                        <div *ngIf="f.answer_one.errors.required" class="fs-15">Answer one is required</div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+          
+                  <div class="form-group mgb-0">
+                    <label for="email mgb-0">Option 2</label>
+                    <div class="row">
+                      <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      </div> -->
+                      <div class="form-group col-md-12">
+                      <input type="text" class="form-control" placeholder="Option 2" formControlName="answer_two" [ngClass]="{ 'is-invalid': submitted && f.answer_two.errors}" (keyup)="two($event)">
+                      <div *ngIf="submitted && f.answer_two.errors" class="invalid-feedback">
+                        <div *ngIf="f.answer_two.errors.required" class="fs-15">Answer two is required</div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+          
+                  <div class="form-group mgb-0">
+                    <label for="email mgb-0">Option 3</label>
+                    <div class="row">
+                      <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      </div> -->
+                      <div class="form-group col-md-12">
+                      <input type="text" class="form-control" placeholder="Option 3" formControlName="answer_three" [ngClass]="{ 'is-invalid': submitted && f.answer_three.errors}" (keyup)="three($event)">
+                      <div *ngIf="submitted && f.answer_three.errors" class="invalid-feedback">
+                        <div *ngIf="f.answer_three.errors.required" class="fs-15">Answer three is required</div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+          
+                  <div class="form-group mgb-0">
+                    <label for="email mgb-0">Option 4</label>
+                    <div class="row">
+                      <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      </div> -->
+                      <div class="form-group col-md-12">
+                      <input type="text" class="form-control" placeholder="Option 4" formControlName="answer_four" [ngClass]="{ 'is-invalid': submitted && f.answer_four.errors}" (keyup)="four($event)">
+                      <div *ngIf="submitted && f.answer_four.errors" class="invalid-feedback">
+                        <div *ngIf="f.answer_four.errors.required" class="fs-15">Answer four is required</div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="form-group">
+                    <label for="email">See Explanation</label>
+                      <textarea id="elearning" name="elearning">      
+                      </textarea>
+                  </div> -->
+                  <div class="form-group">
+                    <label for="">Correct Answer</label>
+                    <select class="form-select" formControlName="correct_answer" [ngClass]="{ 'is-invalid': submitted && f.correct_answer.errors}">
+                       <option value="">-- select the correct answer --</option>
+                       <option value="{{d.optionName}}" *ngFor="let d of data">{{d.optionName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.correct_answer.errors" class="invalid-feedback">
+                      <div *ngIf="f.correct_answer.errors.required" class="fs-15">Correct Answer is required</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Image</label>
+                    <input type="file" class="form-control" formControlName="image" [ngClass]="{ 'is-invalid': submitted && f.image.errors}" (change)="onFileSelect($event)">
+                    <div *ngIf="submitted && f.image.errors" class="invalid-feedback">
+                      <div *ngIf="f.image.errors.required" class="fs-15">Image is required</div>
+                    </div>
+                  </div>
+        
+               
+                </div>
+                <div class="col-md-6">
+                  <label for="">Description</label>
+                  <ckeditor name="PageContent" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors}"  
+                  debounce="500">    
+                  </ckeditor>
+                  <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                    <div *ngIf="f.description.errors.required" class="fs-15">Description is required</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group my-4 text-center">
+                <button type="button" class="btn btn-primary bg-clr" (click)="addqns()">Add Question</button>
+              </div>
+             </form>
+          </div>
+
+        <!-- /.row -->
+        <div class="col-md-12 p-0">
+          <div class="table-responsive">
+              <table id="dtHorizontalExample" class="table table-bordered table-striped" width="100%" cellspacing="0">
+                <thead class="bg-clr">
+                  <tr>
+                    <th>NO</th>
+                    <th>Title</th>
+                    <th>Question Name</th>
+                    <th>Answers</th>
+                    <th>Correct Answer</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                    <!-- <th>Subscription Status</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let allquestion of allquestions">
+                    <td>{{allquestion.id}}</td>
+                    <td>{{allquestion.daily_booster_title}}</td>
+                    <td>{{allquestion.question}}</td>
+                    <td>
+                      <p class="text-overflow">i) {{allquestion.answer1}}</p>
+                      <p class="text-overflow">ii) {{allquestion.answer2}}</p>
+                      <p class="text-overflow">iii) {{allquestion.answer3}}</p>
+                      <p class="text-overflow">iv) {{allquestion.answer4}}</p>
+                    </td>
+                    <td>{{allquestion.correctanswer}}</td>
+                    <td><span class="text-overflow" [innerHTML]="allquestion.explanation"></span></td>
+                    <td>
+                      <div class="category_image">
+                        <img src="{{'http://54.151.204.88'+allquestion.image}}" alt="" class="image">
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <!-- <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="questionview(allquestion.id)"><i class="fa fa-folder-open-o mgr-5" aria-hidden="true"></i>View</button> -->
+                      <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="editqns(allquestion.id,allquestion.daily_booster_id,allquestion.question,allquestion.answer1,allquestion.answer2,allquestion.answer3,allquestion.answer4,allquestion.correctanswer,allquestion.explanation,allquestion.image)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                      <button type="button" class="btn btn-danger fs-15" (click)="delete_qns(allquestion.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <ngx-spinner
+          bdColor="rgba(51,51,51,0.8)"
+          size="medium"
+          color="#fff"
+          type="ball-scale-multiple">
+          <p style="font-size: 20px; color: white">Loading...</p>
+          </ngx-spinner>
+        </div>
+       
+        <div class="col-md-12" *ngIf="no_data">
+          <h1 class="text-danger text-center fs-20 fw-700">No Data Found</h1>
+        </div>
+       
+      </div><!-- /.container-fluid -->
+
+
+    <!-- </section> -->
+    <!-- /.content -->
+  </div>
+
+
+
+  <div class="modal" id="editQns">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header bg-clr">
+          <h4 class="modal-title">Edit Question</h4>
+          <button type="button" class="close text-white" data-dismiss="modal" (click)="canceleditqns()">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form action="" [formGroup]="UpdateQns">
+           <div class="form-group">
+             <label for="email">Enter Question of the day:</label>
+             <input type="text" class="form-control" placeholder="Enter Question" [ngClass]="{ 'is-invalid': updatesubmitted && u.question.errors }" formControlName="question" [(ngModel)]="singlequestion">
+             <div *ngIf="updatesubmitted && u.question.errors" class="invalid-feedback">
+               <div *ngIf="u.question.errors.required" class="fs-15">Question is required</div>
+             </div>
+           </div>
+   
+           <div class="form-group mgb-0">
+             <label for="email mgb-0">Option 1</label>
+             <div class="row">
+               <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+               </div> -->
+               <div class="form-group col-md-12">
+               <input type="text" class="form-control" placeholder="Option 1" formControlName="answer_one" [ngClass]="{ 'is-invalid': updatesubmitted && u.answer_one.errors}"  [(ngModel)]="singleanswer_one"> 
+               <div *ngIf="updatesubmitted && u.answer_one.errors" class="invalid-feedback">
+                 <div *ngIf="u.answer_one.errors.required" class="fs-15">Answer one is required</div>
+               </div>
+               </div>
+             </div>
+           </div>
+   
+           <div class="form-group mgb-0">
+             <label for="email mgb-0">Option 2</label>
+             <div class="row">
+               <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center">
+                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+               </div> -->
+               <div class="form-group col-md-12">
+               <input type="text" class="form-control" placeholder="Option 2" formControlName="answer_two" [ngClass]="{ 'is-invalid': updatesubmitted && u.answer_two.errors}" [(ngModel)]="singleanswer_two">
+               <div *ngIf="updatesubmitted && u.answer_two.errors" class="invalid-feedback">
+                 <div *ngIf="u.answer_two.errors.required" class="fs-15">Answer two is required</div>
+               </div>
+               </div>
+             </div>
+           </div>
+   
+           <div class="form-group mgb-0">
+             <label for="email mgb-0">Option 3</label>
+             <div class="row">
+               <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+               </div> -->
+               <div class="form-group col-md-12">
+               <input type="text" class="form-control" placeholder="Option 3" formControlName="answer_three" [ngClass]="{ 'is-invalid': updatesubmitted && u.answer_three.errors}" [(ngModel)]="singleanswer_three">
+               <div *ngIf="updatesubmitted && u.answer_three.errors" class="invalid-feedback">
+                 <div *ngIf="u.answer_three.errors.required" class="fs-15">Answer three is required</div>
+               </div>
+               </div>
+             </div>
+           </div>
+   
+           <div class="form-group mgb-0">
+             <label for="email mgb-0">Option 4</label>
+             <div class="row">
+               <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+               </div> -->
+               <div class="form-group col-md-12">
+               <input type="text" class="form-control" placeholder="Option 4" formControlName="answer_four" [ngClass]="{ 'is-invalid': updatesubmitted && u.answer_four.errors}" [(ngModel)]="singleanswer_four">
+               <div *ngIf="updatesubmitted && u.answer_four.errors" class="invalid-feedback">
+                 <div *ngIf="u.answer_four.errors.required" class="fs-15">Answer four is required</div>
+               </div>
+               </div>
+             </div>
+           </div>
+           <!-- <div class="form-group">
+             <label for="email">See Explanation</label>
+               <textarea id="elearning" name="elearning">      
+               </textarea>
+           </div> -->
+           <div class="form-group">
+             <label for="">Correct Answer</label>
+             <input class="form-control" formControlName="correct_answer" [ngClass]="{ 'is-invalid': updatesubmitted && u.correct_answer.errors}" [(ngModel)]="single_correct_answer">
+             <div *ngIf="updatesubmitted && u.correct_answer.errors" class="invalid-feedback">
+               <div *ngIf="u.correct_answer.errors.required" class="fs-15">Correct Answer is required</div>
+             </div>
+           </div>
+          <div class="row mgb-10">
+            <div class="col-md-6 category_image">
+              <img src="{{'http://54.151.204.88'+singleimage}}" alt="" class="image">
+             </div>
+             <div class="form-group col-md-6">
+               <label for="">Image</label>
+               <input type="file" class="form-control" formControlName="image" [ngClass]="{ 'is-invalid': updatesubmitted && u.image.errors}" (change)="onFileSelect($event)">
+               <div *ngIf="updatesubmitted && u.image.errors" class="invalid-feedback">
+                 <div *ngIf="u.image.errors.required" class="fs-15">Image is required</div>
+               </div>
+             </div>
+          </div>
+ 
+           <ckeditor name="PageContent" formControlName="description" [ngClass]="{ 'is-invalid': updatesubmitted && u.description.errors}" [(ngModel)]="singleexplanation" 
+           debounce="500">    
+           </ckeditor>
+           <div *ngIf="updatesubmitted && u.description.errors" class="invalid-feedback">
+             <div *ngIf="u.description.errors.required" class="fs-15">Description is required</div>
+           </div>
+          </form>
+         </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary bg-clr" (click)="updateqns()">Update Question</button>
+          <button type="button" class="btn btn-danger" (click)="canceleditqns()" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+</div>
+
+<!-- deleteqns -->
+
+<div class="modal" id="deleteQns">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-clr">
+        <h4 class="modal-title">delete Question</h4>
+        <button type="button" class="close text-white" data-dismiss="modal" (click)="canceldeletqns()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+       are you sure the delete the Question of the day
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary bg-clr" (click)="deletqns()">Delete Question</button>
+        <button type="button" class="btn btn-danger" (click)="canceldeletqns()" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

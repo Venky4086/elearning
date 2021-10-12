@@ -1,0 +1,201 @@
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-12">
+            <h1 class="m-0 text-dark">List of All Mode Questions</h1>
+          </div><!-- /.col -->
+          <div class="col-md-6 my-2">
+            <button type="button" class="btn btn-primary fs-15" routerLink="/elearning/q_bank">Back</button>
+          </div>
+          <div class="col-sm-6 my-2">
+            <ol class="breadcrumb float-sm-right"> 
+                <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="q_bank()"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Q Bank Mode</button>
+                <button type="button" class="btn btn-primary fs-15" (click)="test()"><i class="fa fa-edit mgr-10" aria-hidden="true"></i>Test Mode</button>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+
+          <div class="col-md-12 p-0" *ngIf="q_bank_mode">
+            <div  class="col-md-12">
+              <h1 class="fs-20 fw-700">
+                  Q Bank Mode
+              </h1>
+            </div>
+            <div class="table-responsive">
+                <table id="dtHorizontalExample" class="table table-bordered table-striped" width="100%" cellspacing="0">
+                  <thead class="bg-clr">
+                    <tr>
+                      <th>NO</th>
+                      <th>Question Name</th>
+                      <th>Answers</th>
+                      <th>Correct Answer</th>
+                      <th>Description</th>
+                      <th>Image</th>
+                      <th>Action</th>
+                      <!-- <th>Subscription Status</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let allquestion of allqbankmode">
+                      <td>{{allquestion.id}}</td>
+                      <td>{{allquestion.question}}</td>
+                      <td>
+                        <p class="text-overflow">i) {{allquestion.answer1}}</p>
+                        <p class="text-overflow">ii) {{allquestion.answer2}}</p>
+                        <p class="text-overflow">iii) {{allquestion.answer3}}</p>
+                        <p class="text-overflow">iv) {{allquestion.answer4}}</p>
+                      </td>
+                      <td>{{allquestion.correctanswer}}</td>
+                      <td><p class="text-overflow" [innerHTML]="allquestion.explanation"></p></td>
+                      <td>
+                        <div class="category_image">
+                          <img src="{{'http://54.151.204.88'+allquestion.image}}" alt="" class="image">
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-primary fs-15 mgr-10"><i class="fa fa-folder-open-o mgr-5" aria-hidden="true"></i>View</button>
+                        <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="edit_qbank(allquestion.id)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                        <button type="button" class="btn btn-danger fs-15" (click)="delete_qns(allquestion.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>  
+          <div class="col-md-12 p-0" *ngIf="test_mode">
+            <div  class="col-md-12">
+              <h1 class="fs-20 fw-700">
+                  Test Mode
+              </h1>
+            </div>
+            <div class="table-responsive">
+                <table id="dtHorizontalExample" class="table table-bordered table-striped" width="100%" cellspacing="0">
+                  <thead class="bg-clr">
+                    <tr>
+                      <th>NO</th>
+                      <th>Question Name</th>
+                      <th>Answers</th>
+                      <th>Correct Answer</th>
+                      <th>Description</th>
+                      <th>Image</th>
+                      <th>Action</th>
+                      <!-- <th>Subscription Status</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let allquestion of alltestmode">
+                      <td>{{allquestion.id}}</td>
+                      <td>{{allquestion.question}}</td>
+                      <td>
+                        <p class="text-overflow">i) {{allquestion.answer1}}</p>
+                        <p class="text-overflow">ii) {{allquestion.answer2}}</p>
+                        <p class="text-overflow">iii) {{allquestion.answer3}}</p>
+                        <p class="text-overflow">iv) {{allquestion.answer4}}</p>
+                      </td>
+                      <td>{{allquestion.correctanswer}}</td>
+                      <td><p class="text-overflow" [innerHTML]="allquestion.explanation"></p></td>
+                      <td>
+                        <div class="category_image">
+                          <img src="{{'http://54.151.204.88'+allquestion.image}}" alt="" class="image">
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <!-- <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="questionview(allquestion.id)"><i class="fa fa-folder-open-o mgr-5" aria-hidden="true"></i>View</button> -->
+                        <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="edit_testqns(allquestion.id)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                        <button type="button" class="btn btn-danger fs-15" (click)="delete_testqns(allquestion.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>  
+          
+            <div class="col-md-12">
+              <ngx-spinner
+              bdColor="rgba(51,51,51,0.8)"
+              size="medium"
+              color="#fff"
+              type="ball-scale-multiple">
+              <p style="font-size: 20px; color: white">Loading...</p>
+              </ngx-spinner>
+            </div>
+            <div class="col-md-12" *ngIf="no_data">
+              <h1 class="text-danger text-center fs-20 fw-700">No Data Found</h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+</div>
+
+<!-- delete q bank -->
+
+<div class="modal" id="deleteQns">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-clr">
+        <h4 class="modal-title">Delete Q bank</h4>
+        <button type="button" class="close text-white" data-dismiss="modal" (click)="canceldeletqns()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+       are you sure the delete the Q bank 
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary bg-clr" (click)="deletqns()">Delete</button>
+        <button type="button" class="btn btn-danger" (click)="canceldeletqns()" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- delete test mode -->
+
+<div class="modal" id="deletetestQns">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-clr">
+        <h4 class="modal-title">Delete Test Mode</h4>
+        <button type="button" class="close text-white" data-dismiss="modal" (click)="canceldeletetestqns()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+       are you sure the delete the Test Mode
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary bg-clr" (click)="deletetestqns()">Delete</button>
+        <button type="button" class="btn btn-danger" (click)="canceldeletetestqns()" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

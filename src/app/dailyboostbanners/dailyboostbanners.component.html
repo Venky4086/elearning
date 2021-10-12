@@ -1,0 +1,191 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark mb-3">Daily Boost Banners</h1>
+          </div><!-- /.col -->
+       
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Q-D</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-md-6">
+            <button class="btn btn-primary" routerLink="/elearning/dailyboost">Back</button>
+          </div>
+          <div class="col-md-6 mgb-10">
+            <button class="btn btn-primary float-right fs-15" data-toggle="modal" data-target="#addbanner"><i class="fa fa-plus-circle mgr-5" aria-hidden="true"></i>New Add banner</button>
+          </div>
+          <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="bg-primary">
+                    <tr>
+                      <th>ID</th>
+                      <th>Banner Title</th>
+                      <th>Banner Image</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let banner of allbannerlist">
+                      <td>{{banner.id}}</td>
+                      <td>{{banner.title}}</td>
+                      <td class="d-flex justify-content-center">
+                          <div class="banner_image">
+                              <img src="{{'http://54.151.204.88' + banner.banner}}" alt="banner_image" class="image">
+                          </div>
+                      </td>
+                      <!-- <td>Analog@gmail.com</td> -->
+                      <td class="text-center">
+                        <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="editbanner(banner.id,banner.title,banner.banner)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                        <button type="button" class="btn btn-danger fs-15" (click)="delete_banner(banner.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div> 
+          <div class="col-md-12">
+            <ngx-spinner
+            bdColor="rgba(51,51,51,0.8)"
+            size="medium"
+            color="#fff"
+            type="ball-scale-multiple">
+            <p style="font-size: 20px; color: white">Loading...</p>
+            </ngx-spinner>
+          </div>
+          <div class="col-md-12" *ngIf="no_data">
+            <h1 class="text-danger text-center fs-20 fw-700">No Data Found</h1>
+          </div>
+          <!-- /.col-md-6 -->
+                      
+        </div>
+
+       
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    
+    <!-- /.content -->
+  </div>
+
+  <!-- banner add modal -->
+
+  <div class="modal fade" id="addbanner">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Add Banner</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="Addbanner">
+            <div class="form-group">
+                <label>Banner Title</label>
+                <input type="text" class="form-control" id="name" formControlName="banner_title" [ngClass]="{'is-invalid':submitted && f.banner_title.errors}">
+                <div class="invalid-feedback" *ngIf="submitted && f.banner_title.errors">
+                    <div class="fs-13" *ngIf="f.banner_title.errors.required">Banner Title is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label> Banner Image</label>
+                <input type="file" id="myFile" name="filename2" class="form-control" formControlName="banner_image" [ngClass]="{'is-invalid':submitted && f.banner_image.errors}" (change)="onFileSelect($event)">
+                <div class="invalid-feedback" *ngIf="submitted && f.banner_image.errors">
+                    <div class="fs-13" *ngIf="f.banner_image.errors.required">Banner image is required</div>
+                </div>
+              </div>      
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="addbanner()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- banner edit modal -->
+
+  <div class="modal fade" id="editbanner">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Edit Banner</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closebanner()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="Updatebanner">
+                <div class="form-group">
+                    <label>Banner Title</label>
+                    <input type="text" class="form-control" id="name" formControlName="banner_title" [ngClass]="{'is-invalid':submitted && u.banner_title.errors}" [(ngModel)]="banner_title">
+                    <div class="invalid-feedback" *ngIf="submitted && u.banner_title.errors">
+                        <div class="fs-13" *ngIf="u.banner_title.errors.required">Banner Title is required</div>
+                    </div>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <div class="category_image">
+                        <img src="{{'http://54.151.204.88' +banner_image}}" alt="banner-Image" class="image">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label> Banner Image</label>
+                    <input type="file" id="myFile" name="filename2" class="form-control" formControlName="banner_image" [ngClass]="{'is-invalid':submitted && u.banner_image.errors}" (change)="onFileSelect($event)" [(ngModel)]="banner_image">
+                    <div class="invalid-feedback" *ngIf="submitted && u.banner_image.errors">
+                        <div class="fs-13" *ngIf="u.banner_image.errors.required">Banner image is required</div>
+                    </div>
+                  </div>      
+              </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closebanner()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updatebanner()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- delete the banner -->
+
+  <div class="modal fade" id="deletebanner">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Delete Banner</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="colsebannerdelete()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        Are you sure the delete the banner image
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="colsebannerdelete()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="deletebanner()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>

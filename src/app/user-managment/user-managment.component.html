@@ -1,0 +1,117 @@
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+
+    <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">User Management</h1>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+
+      <section class="content">
+        <div class="container-fluid">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+            <div class="col-md-12 mgb-10 d-flex justify-content-end">
+              <form class="example-form mgl-auto">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon" class="search-icon">search</mat-icon>
+                  <input type="search" 
+                         placeholder="Search......." class="searchinput" id="myInput">
+                </mat-form-field>
+              </form>
+            </div>
+            <!-- /.col-md-6 -->
+            <div class="col-md-12">
+              <div class="table-responsive">
+                  <table class="table" id="myTable">
+                    <thead class="bg-clr">
+                      <tr>
+                        <!-- <th>NO</th> -->
+                        <th>Id</th>
+                        <th>User Name</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>College</th>
+                        <th>Location</th>
+                        <th>Subscription Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let userdata of userdatas">
+                        <td>{{userdata.id}}</td>
+                        <td>{{userdata.user_name}}</td>
+                        <td>{{userdata.mobile}}</td>
+                        <td>{{userdata.email}}</td>
+                        <td>{{userdata.collegue}}</td>
+                        <td>{{userdata.location}}</td>
+                        <td class="text-center">
+                          <button class="btn btn-danger" type="button" (click)="deletemodaluser(userdata.id)">Delete</button>
+                          <button class="btn btn-primary mr-2 ml-2" type="button" (click)="block_button(userdata.id)" *ngIf="userdata.is_blocked === false;">Block</button>
+                          <button class="btn btn-success mr-2 ml-2" type="button" (click)="un_block_button(userdata.id)" *ngIf="userdata.is_blocked == true ;">Un Block</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <ngx-spinner
+              bdColor="rgba(51,51,51,0.8)"
+              size="medium"
+              color="#fff"
+              type="ball-scale-multiple">
+              <p style="font-size: 20px; color: white">Loading...</p>
+              </ngx-spinner>
+            </div>
+            <div class="col-md-12" *ngIf="no_data">
+              <h1 class="text-danger text-center fs-20 fw-700">No Data Found</h1>
+            </div>
+          <!-- /.row -->
+  
+  
+         
+          </div><!-- /.container-fluid -->
+  
+  
+      <!-- </section> -->
+
+        <!-- <div class="page-header">
+            <h1><span style="font-style: italic;"><span style="font-weight: normal;">Page header</span> </span><small>Subtext for header</small></h1>
+        </div>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the <span style="font-weight: bold;">1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus leo ante, consectetur sit amet vulputate vel, dapibus sit amet lectus.</span></p> -->
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+  
+    <!-- /.content -->
+        </div>
+
+
+
+  <!-- delete user -->
+
+
+  <div class="modal fade" id="deleteuser">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Delete User</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closedeleteuser()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure the delete the user
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closedeleteuser()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="deleteuser()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>

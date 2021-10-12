@@ -1,0 +1,211 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-4">
+          <h1 class="m-0 text-dark">Prime Video</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-8">
+          <ol class="breadcrumb float-sm-right">
+              <button type="button" class="btn btn-primary fs-15 mgl-10" routerLink="/elearning/prime_category"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add Category</button>
+              <button type="button" class="btn btn-primary fs-15 mgr-10 mgl-10" routerLink="/elearning/prime_subcategory"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add Subcategory</button>
+              <button type="button" class="btn btn-primary fs-15" data-toggle="modal" data-target="#addvideo"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add Prime Video</button>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+          <div class="col-md-12">
+              <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead class="bg-primary">
+                      <tr>
+                        <th>ID</th>
+                        <th>Subcategory_name</th>
+                        <th>Title</th>
+                        <th>Video</th>
+                        <th class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let allvideo of allvideos">
+                       <td>{{allvideo.id}}</td>
+                       <td>
+                         {{allvideo.sub_category_name}}
+                       </td>
+                       <td>
+                         {{allvideo.title}}
+                       </td>
+                       <td class="d-flex justify-content-center">
+                        <div class="video_play">
+                          <video class="video" controls>
+                           <source src="{{'http://54.151.204.88'+allvideo.video}}"  type="video/mp4">
+                         </video>
+                        </div>
+                      </td>
+                        <!-- <td>Analog@gmail.com</td> -->
+                        <td class="text-center">
+                          <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="editvideo(allvideo.id,allvideo.sub_category_id,allvideo.sub_category_name,allvideo.title,allvideo.video)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                          <button type="button" class="btn btn-danger fs-15" (click)="delete_video(allvideo.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+          </div>
+          <div class="col-md-12">
+            <ngx-spinner
+            bdColor="rgba(51,51,51,0.8)"
+            size="medium"
+            color="#fff"
+            type="ball-scale-multiple">
+            <p style="font-size: 20px; color: white">Loading...</p>
+            </ngx-spinner>
+          </div>
+          <div class="col-md-12" *ngIf="no_data">
+            <h1 class="text-danger text-center fs-20 fw-700">No Data Found</h1>
+          </div>
+      </div>
+      <!-- /.row -->
+
+
+     
+    </div><!-- /.container-fluid -->
+
+
+  </section>
+  <!-- /.content -->
+</div>
+
+<!-- add video  -->
+<div class="modal fade" id="addvideo">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title mgb-0 text-white fs-18">Add Video</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="Addvideo">
+          <div class="form-group">
+            <label for="">Subcategory name</label>
+            <select class="form-select" formControlName="subcategory" [ngClass]="{'is-invalid':submitted && f.subcategory.errors}">
+              <option value="">-- select the Subcategory --</option>
+              <option value="{{allsubcategroy.id}}" *ngFor="let allsubcategroy of allsubcategroys">{{allsubcategroy.name}}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="submitted && f.subcategory.errors">
+              <div *ngIf="submitted && f.subcategory.errors.required" class="fs-13">
+                Subcategory Name is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+              <label>Video Title</label>
+              <input type="text" class="form-control" id="name" formControlName="title" [ngClass]="{'is-invalid':submitted && f.title.errors}">
+              <div class="invalid-feedback" *ngIf="submitted && f.title.errors">
+                <div *ngIf="submitted && f.title.errors.required" class="fs-13">
+                  Title is required
+                </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label> Video Url</label>
+              <input type="file" id="myFile" name="filename2" class="form-control" formControlName="video_url" [ngClass]="{'is-invalid':submitted && f.video_url.errors}" (change)="onFileSelect($event)" accept="video/mp4,video/x-m4v,video/*">
+              <div class="invalid-feedback" *ngIf="submitted && f.video_url.errors">
+                <div *ngIf="submitted && f.video_url.errors.required" class="fs-13">
+                  video is required
+                </div>
+              </div>
+          </div>   
+        </form>
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addvideo()">ADD</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit video -->
+
+<div class="modal fade" id="editvideo">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title mgb-0 text-white fs-18">Edit Video</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeeditvideo()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="Updatevideo">
+          <div class="form-group">
+            <label for="">Subcategory name</label>
+            <input type="text" class="form-control" value="{{prime_subcategory}}" readonly>
+            <!-- <div class="invalid-feedback" *ngIf="updatesubmitted && u.subcategory.errors">
+              <div *ngIf="updatesubmitted && u.subcategory.errors.required" class="fs-13">
+                Subcategory Name is required
+              </div>
+            </div> -->
+          </div>
+          <div class="form-group">
+              <label>Video Title</label>
+              <input type="text" class="form-control" id="name" formControlName="title" [ngClass]="{'is-invalid':updatesubmitted && u.title.errors}" [(ngModel)]="prime_title">
+              <div class="invalid-feedback" *ngIf="updatesubmitted && u.title.errors">
+                <div *ngIf="updatesubmitted && u.title.errors.required" class="fs-13">
+                  Title is required
+                </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label> Video Url</label>
+              <input type="file" id="myFile" name="filename2" class="form-control" formControlName="video_url" [ngClass]="{'is-invalid':updatesubmitted && u.video_url.errors}" (change)="onFileSelect($event)" accept="video/mp4,video/x-m4v,video/*">
+              <div class="invalid-feedback" *ngIf="updatesubmitted && u.video_url.errors">
+                <div *ngIf="updatesubmitted && u.video_url.errors.required" class="fs-13">
+                  video is required
+                </div>
+              </div>
+          </div>   
+        </form>
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeeditvideo()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updatevideo()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete video -->
+
+
+<div class="modal fade" id="deletevideo">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header bg-primary">
+      <h5 class="modal-title mgb-0 text-white fs-18">Delete Video</h5>
+      <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closedeletevideo()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+     Are you sure the delete the video
+    </div>
+    <div class="modal-footer">
+     <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closedeletevideo()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="deletevideo()">Delete</button>
+    </div>
+  </div>
+</div>
+</div>

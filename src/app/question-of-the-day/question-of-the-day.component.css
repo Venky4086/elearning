@@ -1,0 +1,23 @@
+.dtHorizontalExampleWrapper {
+    max-width: 100px;
+    margin: 0 auto;
+    }
+#dtHorizontalExample th, td {
+        white-space: nowrap;
+        }
+
+ .text-overflow{
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }       
+
+.text{
+    display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 3;
+   overflow: hidden;
+   /* background-color: yellow */
+}
+ 

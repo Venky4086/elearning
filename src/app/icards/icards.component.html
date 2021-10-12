@@ -1,0 +1,228 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Icards</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <button type="button" class="btn btn-primary fs-15" routerLink="/elearning/icardscategories"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add Category</button>
+                <button type="button" class="btn btn-primary fs-15 mgr-10 mgl-10" routerLink="/elearning/icardssubcategories"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add Subcategory</button>
+                <button type="button" class="btn btn-primary fs-15" data-toggle="modal" data-target="#addicards"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add Icards</button>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead class="bg-primary">
+                        <tr>
+                          <th>ID</th>
+                          <th>Subcategory Name</th>
+                          <th>Title</th>
+                          <th>PDF</th>
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let allicard of allicards">
+                         <td>{{allicard.id}}</td>
+                         <td>{{allicard.sub_category}}</td>
+                         <td>{{allicard.title}}</td>
+                         <td>{{allicard.pdf}}</td>
+                         <!-- <td>
+                           <pdf-viewer src="{{'http://54.151.204.88'+allicard.pdf}}"></pdf-viewer>
+                         </td> -->
+                          <!-- <td>Analog@gmail.com</td> -->
+                          <td class="text-center">
+                            <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="editicards(allicard.id,allicard.sub_category,allicard.sub_category_id,allicard.title,allicard.pdf)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                            <button type="button" class="btn btn-danger fs-15" (click)="delete_icards(allicard.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+              <ngx-spinner
+              bdColor="rgba(51,51,51,0.8)"
+              size="medium"
+              color="#fff"
+              type="ball-scale-multiple">
+              <p style="font-size: 20px; color: white">Loading...</p>
+              </ngx-spinner>
+            </div>
+            <div class="col-md-12" *ngIf="no_data">
+              <h1 class="text-danger text-center fs-20 fw-700">No Data Found</h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+</div>
+  
+<!-- addcategory modal -->
+
+<div class="modal fade" id="addicards">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Add Icard</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="Icards">
+                  <div class="form-group">
+                      <label for="">Subcategory Name</label>
+                      <select name="" id="" class="form-select" formControlName="Subcategoryname" [ngClass]="{ 'is-invalid': submitted && f.Subcategoryname.errors }">
+                          <option [ngValue]="undefined" selected>-- Select Subcategory Name --</option>
+                          <option value="{{allsubcategory.id}}" *ngFor="let allsubcategory of allsubcategorys">{{allsubcategory.sub_category}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.Subcategoryname.errors" class="invalid-feedback">
+                        <div *ngIf="f.Subcategoryname.errors.required" class="fs-13">Subcategory Name is required</div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Title</label>
+                    <input type="text" class="form-control" formControlName="pdf_title" [ngClass]="{ 'is-invalid': submitted && f.pdf_title.errors }">
+                    <div *ngIf="submitted && f.pdf_title.errors" class="invalid-feedback">
+                      <div *ngIf="f.pdf_title.errors.required" class="fs-13">Pdf Title is required</div>
+                    </div>
+                  </div> 
+                  <div class="form-group">
+                    <label for="">Pdf Upload</label>
+                    <input type="file" class="form-control" formControlName="pdf_url" [ngClass]="{ 'is-invalid': submitted && f.pdf_url.errors }" (change)="onFileSelect($event)" accept="application/pdf,application/vnd.ms-excel" />
+                    <div *ngIf="submitted && f.pdf_url.errors" class="invalid-feedback">
+                        <div *ngIf="f.pdf_url.errors.required" class="fs-13">PDF URL is required</div>
+                    </div>
+                  </div>
+<!-- 
+                <div formArrayName="arr" *ngFor="let a of arr.controls; let i = index">
+                  <div [formGroupName]="i">
+                    <div class="form-group">
+                      <label for="">Title</label>
+                      <input type="text" class="form-control" formControlName="title"> -->
+                      <!-- [ngClass]="{ 'is-invalid': submitted && a.controls.title.errors }" -->
+                      <!-- <div *ngIf="submitted && a.controls.title.errors"
+                      class="invalid-feedback">
+                      <div *ngIf="a.controls.title.errors.required">Image Title is
+                          required
+                      </div>
+                      </div> -->
+                    <!-- </div>
+                    <div class="form-group">
+                      <label for="">Upload PDF</label>
+                      <input type="file" name="upload_pdf" id="upload_pdf" class="form-control" formControlName="upload_pdf" (change)="onFileSelect($event)"> -->
+                      <!-- [ngClass]="{ 'is-invalid': submitted && arr.controls[i].get('upload_pdf').errors }" -->
+                      <!-- <div *ngIf="submitted && arr.controls[i].get('upload_pdf').errors"
+                      class="invalid-feedback">
+                      <div *ngIf="arr.controls[i].get('upload_pdf').errors.required">year is required
+                      </div>
+                      <div *ngIf="arr.controls[i].get('year').errors.pattern">please enter a valid four digit number</div>
+                     </div> -->
+                    <!-- </div> -->
+                    <!-- <div class="form-group my-2 float-right">
+                      <button class="btn btn-danger fs-15 mgr-10" type="button" (click)="removeImage(i)">Remove</button>
+                      <button type="button" class="btn btn-primary fs-15" (click)="add_more_images(i)" [disabled]="arr.invalid"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add More</button>
+                    </div> -->
+                  <!-- </div>
+                </div> -->
+          </form>
+          <!-- <div class="form-group my-2 float-right">
+            <button class="btn btn-danger fs-15" type="button" (click)="removeImage(i)">Remove</button>
+            <button type="button" class="btn btn-primary fs-15" (click)="add_more_images()"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add More</button>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="add_icards()">Submit</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+  <!-- editcategory -->
+
+  <div class="modal fade" id="editicards">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Edit Icards</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="cancelediticards()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="UpdateIcards">
+                <div class="form-group">
+                  <label for="">Subcategory Name</label>
+                  <input type="text" class="form-control" value="{{sub_category}}" readonly>
+              </div>
+              <div class="form-group">
+                <label for="">Title</label>
+                <input type="text" class="form-control" [(ngModel)]="title" formControlName="pdf_title" [ngClass]="{ 'is-invalid': submitted && u.pdf_title.errors }">
+                <div *ngIf="submitted && u.pdf_title.errors" class="invalid-feedback">
+                  <div *ngIf="u.pdf_title.errors.required" class="fs-13">Pdf Title is required</div>
+                </div>
+              </div> 
+             
+              <div class="form-group">
+                <label for="">Pdf Upload</label>
+                <input type="file" class="form-control" value="{{url}}" formControlName="pdf_url" [ngClass]="{ 'is-invalid': submitted && u.pdf_url.errors }" (change)="onFileSelect($event)" accept="application/pdf,application/vnd.ms-excel"/>
+                <div *ngIf="submitted && u.pdf_url.errors" class="invalid-feedback">
+                    <div *ngIf="u.pdf_url.errors.required" class="fs-13">PDF URL is required</div>
+                </div>
+              </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cancelediticards()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateicarde()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- deletecategory -->
+
+  <div class="modal fade" id="deleteicards">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Delete Icard</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="canceldeleteicards()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure the delete the Icard 
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="canceldeleteicards()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="deleteicards()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

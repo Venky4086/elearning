@@ -1,0 +1,237 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Recent Updates</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <button type="button" class="btn btn-primary fs-15" data-toggle="modal" data-target="#addpdf"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add PDF</button>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+
+                  <table class="table table-bordered">
+                    <thead class="bg-primary">
+                      <tr>
+                       <th>Id</th>
+                      <th>Subcategory Name</th>
+                      <th>PDF Title</th>
+                      <th>PDF URL</th>
+                      <th class="text-center">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let all_recent_update of all_recent_updates">
+                           <td>{{all_recent_update.id}}</td>
+                           <td>{{all_recent_update.sub_category}}</td>
+                           <td>{{all_recent_update.title}}</td>
+                           <td>
+                            {{all_recent_update.pdf}}
+                            
+                            <!-- <pdf-viewer [src]="{{http://54.151.204.88/ + all_recent_update.pdf}}"
+                            [original-size]="false"></pdf-viewer> -->
+                               <!-- <div>
+                                  <img src="{{http://54.151.204.88/ + all_recent_update.pdf}}" alt="">
+                               </div> -->
+                           </td>
+                           <td class="text-center">
+                            <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="edit_recent_update(all_recent_update.id,all_recent_update.sub_category,all_recent_update.sub_category_id,all_recent_update.title,all_recent_update.pdf)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                            <button type="button" class="btn btn-danger fs-15" (click)="delete_recent_update(all_recent_update.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <ngx-spinner
+                bdColor="rgba(51,51,51,0.8)"
+                size="medium"
+                color="#fff"
+                type="ball-scale-multiple">
+                <p style="font-size: 20px; color: white">Loading...</p>
+                </ngx-spinner>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+</div>
+  
+<!-- addcategory modal -->
+  <div class="modal fade" id="addpdf">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Add Recent Updates</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="Add_recent_update">
+            <div class="form-group">
+              <label for="">Subcategory Name</label>
+              <select class="form-select" formControlName="subcategory_name" [ngClass]="{ 'is-invalid': submitted && f.subcategory_name.errors }">
+                <option [ngValue]="undefined" selected>-- select a subcategory name --</option>
+                <option value="{{allsubcategory.id}}" *ngFor="let allsubcategory of allsubcategorys">{{allsubcategory.sub_category}}</option>
+              </select>
+              <div *ngIf="submitted && f.subcategory_name.errors" class="invalid-feedback">
+                <div *ngIf="f.subcategory_name.errors.required" class="fs-13">Subcategory Name is required</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="">Pdf Title</label>
+              <input type="text" class="form-control" formControlName="pdf_title" [ngClass]="{ 'is-invalid': submitted && f.pdf_title.errors }">
+              <div *ngIf="submitted && f.pdf_title.errors" class="invalid-feedback">
+                <div *ngIf="f.pdf_title.errors.required" class="fs-13">PDF title is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="">Pdf Upload</label>
+              <input type="file" class="form-control" formControlName="pdf_url" [ngClass]="{ 'is-invalid': submitted && f.pdf_url.errors }" (change)="onFileSelect($event)" accept="application/pdf,application/vnd.ms-excel"/>
+              <div *ngIf="submitted && f.pdf_url.errors" class="invalid-feedback">
+                  <div *ngIf="f.pdf_url.errors.required" class="fs-13">PDF URL is required</div>
+              </div>
+            </div>
+
+             <!-- <div formArrayName="arr" *ngFor="let  addmorevideo of  addmorevideos.controls; let i=index">
+              <div [formGroupName]="i">
+                <div class="form-group">
+                  <label for="">Video Title</label>
+                  <input type="text" class="form-control" formControlName="pdf_title" [ngClass]="{ 'is-invalid': submitted && f.subcategory_name.errors }">
+                  <div *ngIf="submitted && f.pdf_title.errors" class="invalid-feedback">
+                    <div *ngIf="f.pdf_title.errors.required" class="fs-13">Video Name is required</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="">Video Upload</label>
+                  <input type="file" class="form-control" formControlName="pdf_url" (change)="onFileSelect($event)">
+                  <div *ngIf="submitted && f.pdf_url.errors" class="invalid-feedback">
+                      <div *ngIf="f.pdf_url.errors.required" class="fs-13">Video URL is required</div>
+                  </div>
+                </div>
+                <div class="form-group text-right mgt-20">
+                  <button class="btn btn-danger fs-15 mgr-10" type="button" (click)="removeImage(i)">Remove</button>
+                  <button class="btn btn-primary" type="button" (click)="add_more_videos()">Add MOre</button>
+                </div>
+              </div>
+             </div> -->
+
+              <!-- <div class="form-group">
+                <label for="">Topics</label>
+                <input type="text" class="form-control" formControlName="topic_name" [ngClass]="{ 'is-invalid': submitted && f.topic_name.errors }" [(ngModel)]="topic_name">
+                <div *ngIf="submitted && f.topic_name.errors" class="invalid-feedback">
+                  <div *ngIf="f.topic_name.errors.required" class="fs-13">Topics Name is required</div>
+                </div>
+              </div> -->
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="add_recent_update()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- editshotcategory -->
+
+  <div class="modal fade" id="editpdf">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Edit Recent Updates</h5>
+          <button type="button" class="close text-white" (click)="close_recent_update()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup] ="Update_recent_update">
+            <div class="form-group">
+              <label for="">Subcategory Name</label>
+              <input type="text" class="form-control" value="{{editsubcategory}}" readonly>
+              <!-- <div *ngIf="submitted && f.subcategory_name.errors" class="invalid-feedback">
+                <div *ngIf="f.subcategory_name.errors.required" class="fs-13">Subcategory Name is required</div>
+              </div> -->
+            </div>
+              <div class="form-group">
+                  <label for="">Video Title</label>
+                  <input type="text" class="form-control" [(ngModel)]="editpdf_title" formControlName="pdf_title" [ngClass]="{ 'is-invalid': submitted && u.pdf_title.errors }">
+                  <div *ngIf="submitted && u.pdf_title.errors" class="invalid-feedback">
+                    <div *ngIf="u.pdf_title.errors.required" class="fs-15">Pdf title Name is required</div>
+                  </div>
+              </div>
+              <!-- <div class="row">
+                <div class="form-group col-md-8">
+                  <div class="video_play" >
+                    <video class="video" controls>
+                     <source src="{{'http://8cccd54b23a8.ngrok.io'+editpdf_url}}"  type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="">Video URL</label>
+                  <input type="file" class="form-control" (change)="update($event)" value="{{editpdf_url}}"> 
+                </div>
+              </div> -->
+              <div class="form-group">
+                <label for="">Video URL</label>
+                <input type="file" class="form-control" (change)="update($event)" value="{{editpdf_url}}" accept="application/pdf,application/vnd.ms-excel" formControlName="pdf_url" [ngClass]="{ 'is-invalid': submitted && u.pdf_url.errors }"> 
+                <div *ngIf="submitted && u.pdf_url.errors" class="invalid-feedback">
+                    <div *ngIf="u.pdf_url.errors.required" class="fs-13">Pdf url is required</div>
+                  </div>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="close_recent_update()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="update_recent_update()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- deleteshot -->
+
+
+  <div class="modal fade" id="deletepdf">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Delete Recent Updates</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" (click)="closedelete_recent_update()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure the delete the Different Diagnosis
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closedelete_recent_update()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="deleterecentupdate()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>

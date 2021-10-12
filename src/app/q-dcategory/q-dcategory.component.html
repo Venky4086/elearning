@@ -1,0 +1,155 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Categories</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <button type="button" class="btn btn-primary fs-15" data-toggle="modal" data-target="#addcategory"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add New Category</button>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead class="bg-primary">
+                        <tr>
+                          <th>ID</th>
+                          <th>Name</th>
+                          <!-- <th>Image</th> -->
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let allcategroy of allcategroys">
+                          <td>{{allcategroy.uid}}</td>
+                          <!-- <td class="d-flex justify-content-center">
+                            <div class="category_image">
+                            <img src="{{'http://54.254.40.192:8000/'+allcategroy.image_url}}" alt="category_image" class="image">
+                            </div>
+                          </td> -->
+                          <td>{{allcategroy.name}}</td>
+                          <!-- <td>Analog@gmail.com</td> -->
+                          <td class="text-center">
+                            <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="editcategory(allcategroy.uid,allcategroy.name,allcategroy.image_url)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                            <button type="button" class="btn btn-danger fs-15" (click)="deletemodalcategory(allcategroy.uid)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+              </div>
+        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+</div>
+  
+<!-- addcategory modal -->
+  <div class="modal fade" id="addcategory">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Add Category</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="AddCategory">
+              <div class="form-group">
+                <label for="">Category Name</label>
+                <input type="text" class="form-control" formControlName="categoryname" [ngClass]="{ 'is-invalid': submitted && f.categoryname.errors }" [(ngModel)]="category_name">
+                <div *ngIf="submitted && f.categoryname.errors" class="invalid-feedback">
+                  <div *ngIf="f.categoryname.errors.required" class="fs-13">Category Name is required</div>
+                </div>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="addcategory()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- editcategory -->
+
+  <div class="modal fade" id="editcategory">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Edit Category</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeeditcatecory()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form FormGroup="">
+              <div class="form-group">
+                  <label for="">Category Name</label>
+                  <input type="text" class="form-control" value="{{editcategory_name}}">
+              </div>
+             <div class="row">
+              <div class="form-group col-md-6">
+                <div class="category_edit_image">
+                 <img src="{{'http://54.254.40.192:8000/'+editcategory_image}}" alt="category_image" class="edit_image">
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="">Image</label>
+                <input type="file" class="form-control">
+              </div>
+             </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeeditcatecory()">Close</button>
+          <button type="button" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- deletecategory -->
+
+  <div class="modal fade" id="deletecategory">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Delete Category</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closedeletecatecory()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure the delete the category
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closedeletecatecory()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="deletecategory()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

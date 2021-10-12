@@ -1,0 +1,367 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Q & Bank</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <button type="button" class="btn btn-primary fs-15 mgr-10"  routerLink="/elearning/q_bank_category"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add Category</button>
+                <button type="button" class="btn btn-primary fs-15 mgr-10"  routerLink="/elearning/q_bank_subcategory"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add Subcategory</button>
+                <button type="button" class="btn btn-primary fs-15"  routerLink="/elearning/q_bank_allquestions"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>All Questions</button>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+                <div class="col-md-12">
+                    <form [formGroup]="Levels">
+                        <div class="form-group">
+                            <label for="">Mode</label>
+                            <select name="" id="" class="form-select" formControlName="level" [ngClass]="{'is-invalid':levelsubmitted && l.level.errors}">
+                            <option value="" selected>-- Select Level --</option>
+                                <option value="Hard">Hard</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Easy">Easy</option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="levelsubmitted && l.level.errors">
+                                <div class="fs-15" *ngIf="l.level.errors.required">
+                                    Mode is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary fs-15" type="button" (click)="addset()">Add Set</button>
+                        </div>
+                        <div *ngIf="Adset">
+                            <form [formGroup]="Addset">
+                                <div class="form-group">
+                                    <label for="">Set Name</label>
+                                    <input type="text" class="form-control" formControlName="setname" [ngClass]="{ 'is-invalid': submitted && s.setname.errors }">
+                                    <div *ngIf="submitted && s.setname.errors" class="invalid-feedback">
+                                        <div *ngIf="s.setname.errors.required" class="fs-13">Set Name is required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary fs-15" type="button" (click)="addsetsubmit()">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Exams</label>
+                            <select name="" id="" class="form-select" formControlName="exam" [ngClass]="{'is-invalid':levelsubmitted && l.exam.errors}">
+                            <option value="" selected>-- Select Exam --</option>
+                                <option value="NEET">NEET</option>
+                                <option value="INICET">INICET</option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="levelsubmitted && l.exam.errors">
+                                <div class="fs-15" *ngIf="l.exam.errors.required">
+                                    Exam is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Sub Category</label>
+                            <select class="form-select" formControlName="subcategory_name" [ngClass]="{ 'is-invalid': levelsubmitted && l.subcategory_name.errors}">
+                              <option value="">--- select the subcategory ---</option>
+                              <option value="{{subcategroys.id}}" *ngFor="let subcategroys of allsubcategroys">{{subcategroys.name}}</option> 
+                            </select>
+                            <div *ngIf="levelsubmitted && l.subcategory_name.errors" class="invalid-feedback">
+                              <div *ngIf="l.subcategory_name.errors.required" class="fs-15">Subcategory is required</div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="">Q_Bank Modes</label>
+                            <select name="" id="" class="form-select" >
+                                <option [ngValue]="undefined" selected>-- Select Mode --</option>
+                                <option value="Q_Bank_Mode">Q_Bank Mode</option>
+                                <option value="Test_Mode">Test Mode</option>
+                            </select>
+                        </div> -->
+                        <div class="form-group text-center my-3">
+                            <button class="btn btn-primary mgr-20 fs-15" type="button" (click)="q_bank()">Q_Bank Mode</button>
+                            <button class="btn btn-danger fs-15" type="button" (click)="test()">Test Mode</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Q bank mode -->
+
+                <div class="col-md-12" *ngIf="q_bank_mode">
+                    <form action="" [formGroup]="AddQbank">
+                      <div class="row">
+                          <div class="col-md-12">
+                              <h1 class="fs-20 fw-700 text-center">Q Bank Mode</h1>
+                          </div>
+                        <div class="col-md-6">
+        
+                          <div class="form-group">
+                            <label for="email">Enter Question of the day:</label>
+                            <input type="text" class="form-control" placeholder="Enter Question" [ngClass]="{ 'is-invalid': submitted && q.question.errors }" formControlName="question">
+                            <div *ngIf="submitted && q.question.errors" class="invalid-feedback">
+                              <div *ngIf="q.question.errors.required" class="fs-15">Question is required</div>
+                            </div>
+                          </div>
+                  
+                          <div class="form-group mgb-0 ">
+                            <label for="email mgb-0">Option 1</label>
+                            <div class="row">
+                              <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                              </div> -->
+                              <div class="form-group col-md-12">
+                              <input type="text" class="form-control" placeholder="Option 1" formControlName="answer_one" [ngClass]="{ 'is-invalid': submitted && q.answer_one.errors}" (keyup)="one($event)"> 
+                              <div *ngIf="submitted && q.answer_one.errors" class="invalid-feedback">
+                                <div *ngIf="q.answer_one.errors.required" class="fs-15">Answer one is required</div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+                          <div class="form-group mgb-0">
+                            <label for="email mgb-0">Option 2</label>
+                            <div class="row">
+                              <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                              </div> -->
+                              <div class="form-group col-md-12">
+                              <input type="text" class="form-control" placeholder="Option 2" formControlName="answer_two" [ngClass]="{ 'is-invalid': submitted && q.answer_two.errors}" (keyup)="two($event)">
+                              <div *ngIf="submitted && q.answer_two.errors" class="invalid-feedback">
+                                <div *ngIf="q.answer_two.errors.required" class="fs-15">Answer two is required</div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+                          <div class="form-group mgb-0">
+                            <label for="email mgb-0">Option 3</label>
+                            <div class="row">
+                              <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                              </div> -->
+                              <div class="form-group col-md-12">
+                              <input type="text" class="form-control" placeholder="Option 3" formControlName="answer_three" [ngClass]="{ 'is-invalid': submitted && q.answer_three.errors}" (keyup)="three($event)">
+                              <div *ngIf="submitted && q.answer_three.errors" class="invalid-feedback">
+                                <div *ngIf="q.answer_three.errors.required" class="fs-15">Answer three is required</div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                  
+                          <div class="form-group mgb-0">
+                            <label for="email mgb-0">Option 4</label>
+                            <div class="row">
+                              <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                              </div> -->
+                              <div class="form-group col-md-12">
+                              <input type="text" class="form-control" placeholder="Option 4" formControlName="answer_four" [ngClass]="{ 'is-invalid': submitted && q.answer_four.errors}" (keyup)="four($event)">
+                              <div *ngIf="submitted && q.answer_four.errors" class="invalid-feedback">
+                                <div *ngIf="q.answer_four.errors.required" class="fs-15">Answer four is required</div>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="form-group">
+                            <label for="email">See Explanation</label>
+                              <textarea id="elearning" name="elearning">      
+                              </textarea>
+                          </div> -->
+                          <div class="form-group">
+                            <label for="">Correct Answer</label>
+                            <select class="form-select" formControlName="correct_answer" [ngClass]="{ 'is-invalid': submitted && q.correct_answer.errors}">
+                               <option value="">-- select the correct answer --</option>
+                               <option value="{{d.optionName}}" *ngFor="let d of data">{{d.optionName}}</option>
+                            </select>
+                            <div *ngIf="submitted && q.correct_answer.errors" class="invalid-feedback">
+                              <div *ngIf="q.correct_answer.errors.required" class="fs-15">Correct Answer is required</div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="">Image</label>
+                            <input type="file" class="form-control" formControlName="image" [ngClass]="{ 'is-invalid': submitted && q.image.errors}" (change)="onFileSelect($event)">
+                            <div *ngIf="submitted && q.image.errors" class="invalid-feedback">
+                              <div *ngIf="q.image.errors.required" class="fs-15">Image is required</div>
+                            </div>
+                          </div>
+                
+                       
+                        </div>
+                        <div class="col-md-6">
+                          <label for="">Description</label>
+                          <ckeditor name="PageContent" formControlName="description" [ngClass]="{ 'is-invalid': submitted && q.description.errors}"  
+                          debounce="500">    
+                          </ckeditor>
+                          <div *ngIf="submitted && q.description.errors" class="invalid-feedback">
+                            <div *ngIf="q.description.errors.required" class="fs-15">Description is required</div>
+                          </div>
+                        </div>
+                      </div>
+        
+                      <div class="form-group my-4 text-center">
+                        <button type="button" class="btn btn-primary bg-clr" (click)="addQbank()">Add Qbank</button>
+                      </div>
+                     </form>
+                </div>
+
+
+                    <!-- Test mode -->
+
+                    <div class="col-md-12" *ngIf="test_mode">
+                        <form action="" [formGroup]="AddTest">
+            
+                          <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="fs-20 fw-700 text-center">Test Mode</h1>
+                            </div>
+                            <div class="col-md-6">
+            
+                              <!-- <div class="form-group">
+                                <label for="">Sub Category</label>
+                                <select class="form-select" formControlName="subcategory_name" [ngClass]="{ 'is-invalid': submitted && q.subcategory_name.errors}">
+                                  <option value="">--- select the subcategory ---</option>
+                                  <option value="{{subcategroys.id}}" *ngFor="let subcategroys of allsubcategroys">{{subcategroys.name}}</option> 
+                                </select>
+                                <div *ngIf="submitted && q.subcategory_name.errors" class="invalid-feedback">
+                                  <div *ngIf="q.subcategory_name.errors.required" class="fs-15">Dailyboostdetails Title is required</div>
+                                </div>
+                              </div> -->
+            
+                              <div class="form-group">
+                                <label for="email">Enter Question of the day:</label>
+                                <input type="text" class="form-control" placeholder="Enter Question" [ngClass]="{ 'is-invalid': testsubmitted && t.question.errors }" formControlName="question">
+                                <div *ngIf="testsubmitted && t.question.errors" class="invalid-feedback">
+                                  <div *ngIf="t.question.errors.required" class="fs-15">Question is required</div>
+                                </div>
+                              </div>
+                      
+                              <div class="form-group mgb-0 ">
+                                <label for="email mgb-0">Option 1</label>
+                                <div class="row">
+                                  <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                  </div> -->
+                                  <div class="form-group col-md-12">
+                                  <input type="text" class="form-control" placeholder="Option 1" formControlName="answer_one" [ngClass]="{ 'is-invalid': testsubmitted && t.answer_one.errors}" (keyup)="one($event)"> 
+                                  <div *ngIf="testsubmitted && t.answer_one.errors" class="invalid-feedback">
+                                    <div *ngIf="t.answer_one.errors.required" class="fs-15">Answer one is required</div>
+                                  </div>
+                                  </div>
+                                </div>
+                              </div>
+                      
+                              <div class="form-group mgb-0">
+                                <label for="email mgb-0">Option 2</label>
+                                <div class="row">
+                                  <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                  </div> -->
+                                  <div class="form-group col-md-12">
+                                  <input type="text" class="form-control" placeholder="Option 2" formControlName="answer_two" [ngClass]="{ 'is-invalid': testsubmitted && t.answer_two.errors}" (keyup)="two($event)">
+                                  <div *ngIf="testsubmitted && t.answer_two.errors" class="invalid-feedback">
+                                    <div *ngIf="t.answer_two.errors.required" class="fs-15">Answer two is required</div>
+                                  </div>
+                                  </div>
+                                </div>
+                              </div>
+                      
+                              <div class="form-group mgb-0">
+                                <label for="email mgb-0">Option 3</label>
+                                <div class="row">
+                                  <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                  </div> -->
+                                  <div class="form-group col-md-12">
+                                  <input type="text" class="form-control" placeholder="Option 3" formControlName="answer_three" [ngClass]="{ 'is-invalid': testsubmitted && t.answer_three.errors}" (keyup)="three($event)">
+                                  <div *ngIf="testsubmitted && t.answer_three.errors" class="invalid-feedback">
+                                    <div *ngIf="t.answer_three.errors.required" class="fs-15">Answer three is required</div>
+                                  </div>
+                                  </div>
+                                </div>
+                              </div>
+                      
+                              <div class="form-group mgb-0">
+                                <label for="email mgb-0">Option 4</label>
+                                <div class="row">
+                                  <!-- <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                  </div> -->
+                                  <div class="form-group col-md-12">
+                                  <input type="text" class="form-control" placeholder="Option 4" formControlName="answer_four" [ngClass]="{ 'is-invalid': testsubmitted && t.answer_four.errors}" (keyup)="four($event)">
+                                  <div *ngIf="testsubmitted && t.answer_four.errors" class="invalid-feedback">
+                                    <div *ngIf="t.answer_four.errors.required" class="fs-15">Answer four is required</div>
+                                  </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- <div class="form-group">
+                                <label for="email">See Explanation</label>
+                                  <textarea id="elearning" name="elearning">      
+                                  </textarea>
+                              </div> -->
+                              <div class="form-group">
+                                <label for="">Correct Answer</label>
+                                <select class="form-select" formControlName="correct_answer" [ngClass]="{ 'is-invalid': testsubmitted && t.correct_answer.errors}">
+                                   <option value="">-- select the correct answer --</option>
+                                   <option value="{{d.optionName}}" *ngFor="let d of data">{{d.optionName}}</option>
+                                </select>
+                                <div *ngIf="testsubmitted && t.correct_answer.errors" class="invalid-feedback">
+                                  <div *ngIf="t.correct_answer.errors.required" class="fs-15">Correct Answer is required</div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="">Image</label>
+                                <input type="file" class="form-control" formControlName="image" [ngClass]="{ 'is-invalid': testsubmitted && t.image.errors}" (change)="onFileSelect($event)">
+                                <div *ngIf="testsubmitted && t.image.errors" class="invalid-feedback">
+                                  <div *ngIf="t.image.errors.required" class="fs-15">Image is required</div>
+                                </div>
+                              </div>
+                    
+                           
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Timer</label>
+                                    <input type="text" class="form-control" formControlName="timer" [ngClass]="{ 'is-invalid': testsubmitted && t.timer.errors}">
+                                    <div *ngIf="testsubmitted && t.timer.errors" class="invalid-feedback">
+                                      <div *ngIf="t.timer.errors.required" class="fs-15">Timer is required</div>
+                                    </div>
+                                  </div>
+
+                              <label for="">Description</label>
+                              <ckeditor name="PageContent" formControlName="description" [ngClass]="{ 'is-invalid': testsubmitted && t.description.errors}"  
+                              debounce="500">    
+                              </ckeditor>
+                              <div *ngIf="testsubmitted && t.description.errors" class="invalid-feedback">
+                                <div *ngIf="t.description.errors.required" class="fs-15">Description is required</div>
+                              </div>
+                            </div>
+                          </div>
+            
+                          <div class="form-group my-4 text-center">
+                            <button type="button" class="btn btn-primary bg-clr" (click)="addtest()">Add Test</button>
+                          </div>
+                         </form>
+                    </div>
+
+        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+</div>

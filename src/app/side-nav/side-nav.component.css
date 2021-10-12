@@ -1,0 +1,72 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+mat-sidenav{
+  background: #343a40;
+  width: 230px !important;
+}
+.sidenav-logo{
+   border-bottom: 1px solid #495259;
+}
+mat-toolbar span{
+  color: #fff;
+
+}
+mat-nav-list{
+  overflow-y: scroll;
+  max-height: 570px !important;
+  /* height: 100%; */
+  scrollbar-width: thin;
+}
+mat-nav-list a{
+  color: #c2c7d0;
+  height: 42px;
+}
+mat-nav-list a:hover{
+  background: #494e53;
+  color: #fff;
+}
+mat-nav-list a.active{
+  background: #0da5af;
+  color: #fff;
+}
+mat-nav-list a i{
+  margin-right: 10px !important;
+  font-size: 17px !important;
+}
+mat-nav-list a p{
+  margin: 0px !important;
+  font-size: 15px !important;
+}
+.logo{
+  height: 40px;
+}
+
+
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+/* mat-sidenav-content{
+  overflow: hidden !important;
+} */

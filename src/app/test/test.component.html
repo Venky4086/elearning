@@ -1,0 +1,322 @@
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Test</h1>
+            
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <!-- <ol class="breadcrumb float-sm-right">
+                <button type="button" class="btn btn-primary fs-15" data-toggle="modal" data-target="#addtest"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add Question</button>
+            </ol> -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+                        <!-- /.col-md-6 -->
+                        <div class="col-md-6">
+                          <form action="">
+                            <div class="form-group">
+                              <label for="">Sub Category</label>
+                              <select class="form-select fs-15" aria-label="Default select example">
+                                <option selected>-- Select SubCategory --</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="">Timer</label>
+                              <input type="time" class="form-control">
+                            </div>
+                            <div class="form-group">
+                              <label for="email">Enter Question of the day:</label>
+                              <input type="text" class="form-control" placeholder="Enter Question">
+                              <!-- <div *ngIf="submitted && f.question_of_the_day.errors" class="invalid-feedback">
+                                <div *ngIf="f.question_of_the_day.errors.required" class="fs-15">Question of the day is required</div>
+                              </div> -->
+                            </div>
+                    
+                            <div class="form-group mgb-0">
+                              <label for="email mgb-0">Option 1</label>
+                              <div class="row">
+                                <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                </div>
+                                <div class="form-group col-md-10">
+                                <input type="text" class="form-control" placeholder="Option 1">
+                                <!-- <div *ngIf="submitted && f.answer_one.errors" class="invalid-feedback">
+                                  <div *ngIf="f.answer_one.errors.required" class="fs-15">Answer one is required</div>
+                                </div> -->
+                                </div>
+                              </div>
+                            </div>
+                    
+                            <div class="form-group mgb-0">
+                              <label for="email mgb-0">Option 2</label>
+                              <div class="row">
+                                <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                </div>
+                                <div class="form-group col-md-10">
+                                <input type="text" class="form-control" placeholder="Option 2">
+                                <!-- <div *ngIf="submitted && f.answer_two.errors" class="invalid-feedback">
+                                  <div *ngIf="f.answer_two.errors.required" class="fs-15">Answer two is required</div>
+                                </div> -->
+                                </div>
+                              </div>
+                            </div>
+                    
+                            <div class="form-group mgb-0">
+                              <label for="email mgb-0">Option 3</label>
+                              <div class="row">
+                                <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                </div>
+                                <div class="form-group col-md-10">
+                                <input type="text" class="form-control" placeholder="Option 3">
+                                <!-- <div *ngIf="submitted && f.answer_three.errors" class="invalid-feedback">
+                                  <div *ngIf="f.answer_three.errors.required" class="fs-15">Answer three is required</div>
+                                </div> -->
+                                </div>
+                              </div>
+                            </div>
+                    
+                            <div class="form-group mgb-0">
+                              <label for="email mgb-0">Option 4</label>
+                              <div class="row">
+                                <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                </div>
+                                <div class="form-group col-md-10">
+                                <input type="text" class="form-control" placeholder="Option 4">
+                                <!-- <div *ngIf="submitted && f.answer_four.errors" class="invalid-feedback">
+                                  <div *ngIf="f.answer_four.errors.required" class="fs-15">Answer four is required</div>
+                                </div> -->
+                                </div>
+                              </div>
+                            </div>
+                            <ckeditor name="PageContent" required    
+                            debounce="500">    
+                            </ckeditor>
+                           </form> 
+                           <div class="form-group my-3 text-center">
+                            <button type="button" class="btn btn-primary fs-15 mgr-10"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add More</button>
+                            <button type="button" class="btn btn-primary fs-15">Submit</button>
+                           </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                  <thead class="bg-clr">
+                                    <tr>
+                                      <th>NO</th>
+                                      <th>Timer</th>
+                                      <th>Question Name</th>
+                                      <th>Answer</th>
+                                      <th>Description</th>
+                                      <th>Action</th>
+                                      <!-- <th>Subscription Status</th> -->
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>1</td>
+                                      <td>Timer</td>
+                                      <td>Question</td>
+                                      <td>Answer</td>
+                                      <td>Description</td>
+                                      <td class="text-center">
+                                        <button type="button" class="btn btn-primary fs-15 mgr-10"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                                        <button type="button" class="btn btn-danger fs-15"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    <!-- </section> -->
+    <!-- /.content -->
+</div>
+
+
+<!-- addqns  -->
+
+<div class="modal" id="addtest">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header bg-clr">
+          <h4 class="modal-title">Add Question</h4>
+          <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+         <form action="">
+          <div class="form-group">
+            <label for="">Timer</label>
+            <input type="time" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="email">Enter Question of the day:</label>
+            <input type="text" class="form-control" placeholder="Enter Question">
+            <!-- <div *ngIf="submitted && f.question_of_the_day.errors" class="invalid-feedback">
+              <div *ngIf="f.question_of_the_day.errors.required" class="fs-15">Question of the day is required</div>
+            </div> -->
+          </div>
+  
+          <div class="form-group mgb-0">
+            <label for="email mgb-0">Option 1</label>
+            <div class="row">
+              <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div>
+              <div class="form-group col-md-10">
+              <input type="text" class="form-control" placeholder="Option 1">
+              <!-- <div *ngIf="submitted && f.answer_one.errors" class="invalid-feedback">
+                <div *ngIf="f.answer_one.errors.required" class="fs-15">Answer one is required</div>
+              </div> -->
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-group mgb-0">
+            <label for="email mgb-0">Option 2</label>
+            <div class="row">
+              <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div>
+              <div class="form-group col-md-10">
+              <input type="text" class="form-control" placeholder="Option 2">
+              <!-- <div *ngIf="submitted && f.answer_two.errors" class="invalid-feedback">
+                <div *ngIf="f.answer_two.errors.required" class="fs-15">Answer two is required</div>
+              </div> -->
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-group mgb-0">
+            <label for="email mgb-0">Option 3</label>
+            <div class="row">
+              <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div>
+              <div class="form-group col-md-10">
+              <input type="text" class="form-control" placeholder="Option 3">
+              <!-- <div *ngIf="submitted && f.answer_three.errors" class="invalid-feedback">
+                <div *ngIf="f.answer_three.errors.required" class="fs-15">Answer three is required</div>
+              </div> -->
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-group mgb-0">
+            <label for="email mgb-0">Option 4</label>
+            <div class="row">
+              <div class="form-group col-md-2 text-center d-flex align-items-center justify-content-center ">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div>
+              <div class="form-group col-md-10">
+              <input type="text" class="form-control" placeholder="Option 4">
+              <!-- <div *ngIf="submitted && f.answer_four.errors" class="invalid-feedback">
+                <div *ngIf="f.answer_four.errors.required" class="fs-15">Answer four is required</div>
+              </div> -->
+              </div>
+            </div>
+          </div>
+          <ckeditor name="PageContent" required    
+          debounce="500">    
+          </ckeditor>
+         </form>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary bg-clr">Add Question</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+</div>
+
+<!-- editqns -->
+
+<div class="modal" id="edittest">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header bg-clr">
+          <h4 class="modal-title">Edit Question</h4>
+          <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="email">Enter Question of the day:</label>
+            <input type="text" class="form-control" placeholder="Enter Question">
+          </div>
+          <div class="form-group">
+            <label for="email">Answer:</label>
+            <input type="text" class="form-control" placeholder="Enter Answer">
+          </div>
+  
+          <div class="form-group">
+            <label for="email">Option 1</label>
+            <input type="text" class="form-control" placeholder="Option 1">
+          </div>
+  
+          <div class="form-group">
+            <label for="email">Option 2</label>
+            <input type="text" class="form-control" placeholder="Option 2">
+          </div>
+  
+  
+          <div class="form-group">
+            <label for="email">Option 3</label>
+            <input type="text" class="form-control" placeholder="Option 3">
+          </div>
+  
+          <div class="form-group">
+            <label for="email">Option 4</label>
+            <input type="text" class="form-control" placeholder="Option 4">
+          </div>
+          <!-- <div class="form-group">
+            <label for="email">See Explanation</label>
+              <textarea id="elearning" name="elearning">      
+              </textarea>
+          </div> -->
+          <ckeditor name="PageContent" required    
+           debounce="500">    
+          </ckeditor>    
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary bg-clr">Update Question</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+</div>
+
+

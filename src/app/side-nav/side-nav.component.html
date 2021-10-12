@@ -1,0 +1,435 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar class="sidenav-logo"> <img src="assets/images/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3 logo mgr-10"
+      style="opacity: .8">
+     <span class="brand-text font-weight-light">E-Learning</span></mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="dashboard" (click)="dashboard()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-tachometer"></i>
+        <p>
+          Dashboard
+        </p>
+      </a>
+      <a mat-list-item routerLink="usermanagment" (click)="user_management()"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">  
+        <i class="nav-icon fa fa-user"></i>
+        <p>
+          User Management
+        </p>
+      </a>
+      <a mat-list-item routerLink="dailyboost" (click)="daily_boost()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-copy"></i>
+        <p>
+          Daily boost
+        </p>
+      </a>
+      <a mat-list-item routerLink="question_of_the_day" (click)="question_of_the_day()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-edit"></i>
+        <p>
+          Question of the Day
+        </p>
+      </a>
+      <a mat-list-item data-toggle="collapse" href="#q_bank" (click)="q_bank()">
+        <i class="nav-icon fa fa-edit"></i>
+        <p>
+          Q & Bank
+        </p>
+        <span class="fa fa-angle-right  fs-20 fw-900 mgl-auto"></span>
+      </a>
+      <div class="collapse" id="q_bank">
+        <a mat-list-item routerLink="q_bank"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Custom Module
+          </p>
+        </a>
+        <a mat-list-item routerLink="previous_qpapers" (click)="previous_qpapers()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-caret-left" aria-hidden="true"></i>
+          <p class="">
+        Previous Q Papers
+          </p>
+        </a>
+        <a mat-list-item routerLink="previous_qpapers" (click)="previous_qpapers()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-caret-left" aria-hidden="true"></i>
+          <p class="">
+        Subject list
+          </p>
+        </a>
+      </div>
+      <a mat-list-item routerLink="groupdisscusion" (click)="group_discussion()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-users"></i>
+        <p>
+          Group Discussion
+        </p>
+      </a>
+      <a mat-list-item routerLink="liveclass" (click)="live_class()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-book"></i>
+        <p>
+          Live Class
+        </p>
+      </a>
+      <a mat-list-item routerLink="prime_video" (click)="prime()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="fa fa-video-camera" aria-hidden="true"></i>
+        <p>
+          Prime
+        </p>
+      </a>
+      <a mat-list-item data-toggle="collapse" href="#collapseExample" (click)="different_digontics()">
+        <i class="nav-icon fa fa-play"></i>
+        <p class="">
+         Different Diagnotics
+        <span class="fa fa-angle-right mgl-2 fs-20 fw-900 mgl-10"></span>
+        <!-- <span class="fa fa-angle-down right mgl-2 fs-20 fw-900 mgl-10"></span> -->
+        </p>
+      </a>
+      <div class="collapse" id="collapseExample">
+          <a mat-list-item routerLink="categories"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <i class="nav-icon fa fa-bullseye"></i>
+            <p class="">
+            Categories
+            </p>
+          </a>
+          <a mat-list-item routerLink="subcategories" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <i class="nav-icon fa fa-bullseye"></i>
+            <p class="">
+            Subcategories
+            </p>
+          </a>
+          <a mat-list-item routerLink="different_dignotics" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <i class="fa fa-file-text" aria-hidden="true"></i>
+            <p class="">
+            Add Pdf
+            </p>
+          </a>
+      </div>
+
+      <a mat-list-item data-toggle="collapse" href="#recent_updates" (click)="recent_updates()">
+        <i class="fa fa-pencil-square" aria-hidden="true"></i>
+        <p>
+         Recent Update
+        </p>
+        <span class="fa fa-angle-right mgl-2 fs-20 fw-900 mgl-auto"></span>
+      </a>
+      <div class="collapse" id="recent_updates">
+        <a mat-list-item routerLink="recentcategories"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Categories
+          </p>
+        </a>
+        <a mat-list-item routerLink="recentsubcategories" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Subcategories
+          </p>
+        </a>
+        <a mat-list-item routerLink="recent_updates" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="fa fa-file-text" aria-hidden="true"></i>
+          <p class="">
+          Add Pdf
+          </p>
+        </a>
+      </div>
+
+      <a mat-list-item data-toggle="collapse" href="#value" (click)="value()">
+        <i class="nav-icon fa fa-play"></i>
+        <p>
+          Value
+        </p>
+        <span class="fa fa-angle-right mgl-2 fs-20 fw-900 mgl-auto"></span>
+      </a>
+      <div class="collapse" id="value">
+        <a mat-list-item routerLink="valuecategories"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Categories
+          </p>
+        </a>
+        <a mat-list-item routerLink="valuesubcategories" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Subcategories
+          </p>
+        </a>
+        <a mat-list-item routerLink="value" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="fa fa-file-text" aria-hidden="true"></i>
+          <p class="">
+          Add Pdf
+          </p>
+        </a>
+      </div>
+      
+      <a mat-list-item data-toggle="collapse" href="#ask_doubts" (click)="ask_doubts()">
+        <i class="nav-icon fa fa-cog"></i>
+        <p>
+          Ask Doubt
+        </p>
+        <span class="fa fa-angle-right mgl-2 fs-20 fw-900 mgl-auto"></span>
+      </a>
+      <div class="collapse" id="ask_doubts">
+        <a mat-list-item routerLink="askcategories"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Create Categories
+          </p>
+        </a>
+        <a mat-list-item routerLink="asksubcategories" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Subcategories
+          </p>
+        </a>
+      </div>
+
+      <a mat-list-item data-toggle="collapse" href="#icards" (click)="icards()">
+        <i class="nav-icon fa fa-envelope"></i>
+        <p>
+           Icards
+        </p>
+        <span class="fa fa-angle-right mgl-2 fs-20 fw-900 mgl-auto"></span>
+      </a>
+      <div class="collapse" id="icards">
+        <a mat-list-item routerLink="icards" (click)="icards()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-envelope"></i>
+          <p class="">
+          Icards
+          </p>
+        </a>
+        <a mat-list-item routerLink="audio" (click)="audio()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-file-audio-o" aria-hidden="true"></i>
+          <p class="">
+          Audio
+          </p>
+        </a>
+        <a mat-list-item routerLink="past_exam_topics" (click)="past_exam()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-etsy" aria-hidden="true"></i>
+          <p class="">
+          Past Exam Topics
+          </p>
+        </a>
+      </div>
+      
+      <a mat-list-item data-toggle="collapse" href="#img_bank" (click)="image_bank()">
+        <i class="nav-icon fa fa-cog"></i>
+        <p>
+         Img Bank
+        </p>
+        <span class="fa fa-angle-right mgl-2 fs-20 fw-900 mgl-auto"></span>
+      </a> 
+      <div class="collapse" id="img_bank">
+        <a mat-list-item routerLink="img_bankcategory"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Create Categories
+          </p>
+        </a>
+        <a mat-list-item routerLink="img_banksubcategory" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Subcategories
+          </p>
+        </a>
+        <a mat-list-item routerLink="img_bank"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="fa fa-file-text" aria-hidden="true"></i>
+          <p class="">
+          Add Pdf
+          </p>
+        </a>
+      </div>
+
+      <a mat-list-item data-toggle="collapse" href="#wall_poster" (click)="wall_poster()">
+        <i class="nav-icon fa fa-cog"></i>
+        <p>
+        Wall Poster
+        </p>
+        <span class="fa fa-angle-right mgl-2 fs-20 fw-900 mgl-auto"></span>
+      </a>
+      <div class="collapse" id="wall_poster">
+        <a mat-list-item routerLink="wallpostercategories"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Categories
+          </p>
+        </a>
+        <a mat-list-item routerLink="wallpostersubcategories" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Subcategories
+          </p>
+        </a>
+        <a mat-list-item routerLink="wallposter" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="fa fa-file-text" aria-hidden="true"></i>
+          <p class="">
+          Add Pdf
+          </p>
+        </a>
+      </div>
+
+
+      <a mat-list-item routerLink="suggested" routerLinkActive="active" (click)="suggested()" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-cog"></i>
+              <p>
+               Suggested
+              </p>
+      </a>
+      <a mat-list-item  data-toggle="collapse" href="#q_d" (click)="q_d()">
+        <i class="nav-icon fa fa-cog"></i>
+        <p>
+         Q & D
+        </p>
+        <span class="fa fa-angle-right mgl-2 fs-20 fw-900 mgl-auto"></span>
+      </a> 
+      <div class="collapse" id="q_d">
+        <!-- <a mat-list-item routerLink="q_dcategories"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Create Categories
+          </p>
+        </a> -->
+        <a mat-list-item routerLink="q_d" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Add Video
+          </p>
+        </a>
+      </div>
+
+      <a mat-list-item data-toggle="collapse" href="#t_d" (click)="t_d()">
+        <i class="nav-icon fa fa-file-text" aria-hidden="true"></i>
+        <p>
+         T & D
+        </p>
+        <span class="fa fa-angle-right mgl-2 fs-20 fw-900 mgl-auto"></span>
+      </a> 
+      <div class="collapse" id="t_d">
+        <a mat-list-item routerLink="t_dcategories"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Categories
+          </p>
+        </a>
+        <a mat-list-item routerLink="t_dsubcategories" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Subcategories
+          </p>
+        </a>
+        <a mat-list-item routerLink="disscussion" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class=" nav-icon fa fa-users" aria-hidden="true"></i>
+          <p class="">
+          Discussion
+          </p>
+        </a>
+        <a mat-list-item routerLink="test" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-file-text" aria-hidden="true"></i>
+          <p class="">
+          Discussion Test
+          </p>
+        </a>
+        <a mat-list-item routerLink="test" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-file-text" aria-hidden="true"></i>
+          <p class="">
+          Test
+          </p>
+        </a>
+      </div>
+
+
+      <a mat-list-item data-toggle="collapse" href="#shots" (click)="shots()">
+        <i class="nav-icon fa fa-cog"></i>
+        <p>
+         Shots
+        </p>
+        <span class="fa fa-angle-right mgl-2 fs-20 fw-900 mgl-auto"></span>
+      </a>
+      <div class="collapse" id="shots">
+        <a mat-list-item routerLink="shotscategories"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Categories
+          </p>
+        </a>
+        <a mat-list-item routerLink="shotssubcategories" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-bullseye"></i>
+          <p class="">
+          Subcategories
+          </p>
+        </a>
+        <a mat-list-item routerLink="shots" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <i class="nav-icon fa fa-cog"></i>
+          <p>
+           Add Video
+          </p>
+        </a>
+      </div>
+
+
+      <a mat-list-item routerLink="faculty" (click)="faculty()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-cog"></i>
+        <p>
+         Faculty
+        </p>
+      </a>
+      <a mat-list-item routerLink="social_media" (click)="social_media()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-cog"></i>
+        <p>
+            Social Media
+        </p>
+      </a>
+      <a mat-list-item routerLink="faq" (click)="faq()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-cog"></i>
+        <p>
+        FAQ
+        </p>
+      </a>
+      <a mat-list-item routerLink="termsandconditions" (click)="terms_conditions()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-cog"></i>
+              <p>
+              Terms & Conditions
+              </p>
+      </a>
+      <a mat-list-item routerLink="contactus" (click)="contactus()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-cog"></i>
+        <p>
+        Contact US
+        </p>
+      </a>
+      <a mat-list-item routerLink="aboutus" (click)="aboutus()" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="nav-icon fa fa-cog"></i>
+        <p>
+        About US
+        </p>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>{{heading}}</span>
+
+      <!-- <form class="example-form mgl-auto">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-icon aria-hidden="false" aria-label="Example home icon" class="search-icon">search</mat-icon>
+          <input type="search" 
+                 placeholder="Search......." class="searchinput">
+        </mat-form-field>
+      </form> -->
+
+    </mat-toolbar>
+    <ng-content>
+
+    </ng-content>
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+

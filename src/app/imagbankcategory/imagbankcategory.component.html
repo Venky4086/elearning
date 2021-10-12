@@ -1,0 +1,150 @@
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Categories</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <button type="button" class="btn btn-primary fs-15" data-toggle="modal" data-target="#addcategory"><i class="fa fa-plus-circle mgr-10" aria-hidden="true"></i>Add New Category</button>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead class="bg-primary">
+                        <tr>
+                          <th>ID</th>
+                          <th>Name</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let allcategroy of allcategroys">
+                          <td>{{allcategroy.id}}</td>
+                          <td>{{allcategroy.name}}</td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-primary fs-15 mgr-10" (click)="editcategory(allcategroy.id,allcategroy.name)"><i class="fa fa-pencil-square-o mgr-5" aria-hidden="true"></i>Edit</button>
+                            <button type="button" class="btn btn-danger fs-15" (click)="deletemodalcategory(allcategroy.id)"><i class="fa fa-trash-o mgr-5" aria-hidden="true"></i>Delete</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+              <ngx-spinner
+              bdColor="rgba(51,51,51,0.8)"
+              size="medium"
+              color="#fff"
+              type="ball-scale-multiple">
+              <p style="font-size: 20px; color: white">Loading...</p>
+              </ngx-spinner>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+       
+      </div><!-- /.container-fluid -->
+
+
+    </section>
+    <!-- /.content -->
+</div>
+  
+<!-- addcategory modal -->
+  <div class="modal fade" id="addcategory">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Add Category</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="AddCategory">
+              <div class="form-group">
+                <label for="">Category Name</label>
+                <input type="text" class="form-control" formControlName="categoryname" [ngClass]="{ 'is-invalid': submitted && f.categoryname.errors }" [(ngModel)]="category_name">
+                <div *ngIf="submitted && f.categoryname.errors" class="invalid-feedback">
+                  <div *ngIf="f.categoryname.errors.required" class="fs-13">Category Name is required</div>
+                </div>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="addcategory()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- editcategory -->
+
+  <div class="modal fade" id="editcategory">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Edit Category</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeeditcatecory()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="UpdateCategory">
+              <div class="form-group">
+                  <label for="">Category Name</label>
+                  <input type="text" class="form-control" [(ngModel)]="editcategory_name" formControlName="categoryname" [ngClass]="{ 'is-invalid': submitted && u.categoryname.errors }">
+                  <div *ngIf="submitted && u.categoryname.errors" class="invalid-feedback">
+                    <div *ngIf="u.categoryname.errors.required" class="fs-13">Category Name is required</div>
+                  </div>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeeditcatecory()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updatecategory()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- deletecategory -->
+
+  <div class="modal fade" id="deletecategory">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title mgb-0 text-white fs-18">Delete Category</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closedeletecatecory()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure the delete the category
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closedeletecatecory()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="deletecategory()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
